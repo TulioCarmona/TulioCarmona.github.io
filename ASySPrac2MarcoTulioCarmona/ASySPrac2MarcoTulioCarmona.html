@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Pr&aacute;ctica 02: Se&ntilde;ales en tiempo continuo</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-04-02"><meta name="DC.source" content="Prcatica2_V1.m"><style type="text/css">
+      --><title>Pr&aacute;ctica 02: Se&ntilde;ales en tiempo continuo</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-04-03"><meta name="DC.source" content="Prcatica2_V1.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -66,14 +66,18 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Pr&aacute;ctica 02: Se&ntilde;ales en tiempo continuo</h1><!--introduction--><p><b>Intituto Polit&eacute;cnico Nacional</b></p><p><b>Unidad Profesional Interdisciplinaria en Ingenier&iacute;a y Tecnolog&iacute;as Avanzadas</b></p><p><b>An&aacute;lisis de Se&ntilde;ales y Sistemas</b></p><p><b>Grupo: 2MV1</b></p><p><b>Alumnos:</b></p><div><ul><li>Ordorica Mu&ntilde;oz Leonardo Antonio</li></ul></div><div><ul><li>Carmona Bellido Marco Tulio</li></ul></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Introducci&oacute;n</a></li><li><a href="#2">Objetivos</a></li><li><a href="#3">Desarrollo</a></li><li><a href="#4">Problema 1</a></li><li><a href="#5">Problema 2</a></li><li><a href="#7">Problema 3</a></li><li><a href="#9">Problema 4</a></li><li><a href="#62">Problema 5</a></li><li><a href="#75">Problema 6</a></li><li><a href="#76">Problema 7</a></li><li><a href="#77">Referencias</a></li></ul></div><h2 id="1">Introducci&oacute;n</h2><p>MATLAB es un lenguaje de programaci&oacute;n interpretado e interactivo, esto significa que a diferencia de C o Fortran no se generan ejecutables sino que un programa llamado interprete recibe &oacute;rdenes y las ejecuta. Estas &oacute;rdenes se comunican al int&eacute;rprete mediante un lenguaje de programaci&oacute;n que recibe el mismo nombre que el programa, Matlab. Entonces utilizar Matlab es equivalente a programar en Matlab. Matlab cuenta con una biblioteca de c&aacute;lculo num&eacute;rico y de ingenier&iacute;a tan extensa como &uacute;til y el int&eacute;rprete es extensible mediante distintos lenguajes compilados como C y Fortran. Matlab tiene la gran virtud convertir en triviales tareas f&aacute;ciles como las operaciones elementales. Matlab, abreviatura de MATrix LABoratory, "laboratorio de matrices", como su nombre lo indica, trabaja con matrices siempre, por lo que se deben hacer ciertas consideraciones a la hora de realizar operaciones entre estas, tales como la multiplicaci&oacute;n de matrices, entre otros. Se encuentra disponible como aplicaci&oacute;n descargable e instalable en sistemas como Windows, OSX (Mac) y Linux. <a href="https://la.mathworks.com/products.html?s_tid=gn_ps">P&aacute;gina oficial de Productos MATLAB.</a></p><p>Aunque se tienen alternativas descargables, tambien existen opciones disponibles en l&iacute;nea (no descargables), tales como <a href="https://octave-online.net/">Octave Online</a>, la cual es una plataforma casi id&eacute;ntica a la sintaxis Matlab, con excepci&oacute;n de que en Octave Online se permiten algunos comandos e instrucciones que en Matlab no existen, un ejemplo son las instrucciones que se le pueden dar al declarar una variable, en Octave Online se le puede indicar que cierta variable es un entero positivo, etc. Una de las ventajas muy importantes de Octave es que es software libre (gratuito), que por otro lado, Matlab es un producto comercial. Tambi&eacute;n existen otras alternativas como <a href="https://jupyter.org/">Jupyter</a>, el cual trabaja con el lenguaje Python pero que igual es muy amigable. Matlab es un producto de MathWorks. Fue dise&ntilde;ado a finales de los 70 por Cleve Moler como una herramienta para evitar a sus estudiantes tener que aprender Fortran. Apareci&oacute; como producto comercial en el a&ntilde;o 1984 y desde entonces ha ido gandando adeptos, sobretodo en el campo del control lineal y no lineal y en la ingenier&iacute;a en general.</p><p><b>Cursos para Matlab y Octave:</b></p><div><ul><li><a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-094-introduction-to-matlab-january-iap-2010/index.htm">Matlab</a></li></ul></div><div><ul><li><a href="https://www.edx.org/es/course/matlab-octave-beginners-epflx-matlabeoctavebeginnersx">Octave y Matlab para Principiantes</a></li></ul></div><h2 id="2">Objetivos</h2><div><ul><li>Manipulaci&oacute;n b&aacute;sica de MATLAB</li><li>Gr&aacute;ficas de se&ntilde;ales reales y complejas continuas</li><li>Transformaci&oacute;n de se&ntilde;ales continuas (escalamientos y traslaciones)</li><li>Calculo de energ&iacute;a y potencia de se&ntilde;ales continuas</li></ul></div><h2 id="3">Desarrollo</h2><h2 id="4">Problema 1</h2><p>Creemos una funcion con el nombre fun1 que reciba dos parametros, como se muestra a continuacion:</p><pre class="language-matlab"><span class="keyword">function</span> [outputArg1] = fun1(a,w)
+  </style></head><body><div class="content"><h1>Pr&aacute;ctica 02: Se&ntilde;ales en tiempo continuo</h1><!--introduction--><p><b>Intituto Polit&eacute;cnico Nacional</b></p><p><b>Unidad Profesional Interdisciplinaria en Ingenier&iacute;a y Tecnolog&iacute;as Avanzadas</b></p><p><b>An&aacute;lisis de Se&ntilde;ales y Sistemas</b></p><p><b>Grupo: 2MV1</b></p><p><b>Alumnos:</b></p><div><ul><li>Carmona Bellido Marco Tulio</li></ul></div><div><ul><li>Ordorica Mu&ntilde;oz Leonardo Antonio</li></ul></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Introducci&oacute;n</a></li><li><a href="#2">Objetivos</a></li><li><a href="#3">Desarrollo</a></li><li><a href="#4">Problema 1</a></li><li><a href="#5">Problema 2</a></li><li><a href="#7">Problema 3</a></li><li><a href="#9">Problema 4</a></li><li><a href="#62">Problema 5</a></li><li><a href="#75">Problema 6</a></li><li><a href="#108">Problema 7</a></li><li><a href="#120">Referencias</a></li></ul></div><h2 id="1">Introducci&oacute;n</h2><p>MATLAB es un lenguaje de programaci&oacute;n interpretado e interactivo, esto significa que a diferencia de C o Fortran no se generan ejecutables sino que un programa llamado interprete recibe &oacute;rdenes y las ejecuta. Estas &oacute;rdenes se comunican al int&eacute;rprete mediante un lenguaje de programaci&oacute;n que recibe el mismo nombre que el programa, Matlab. Entonces utilizar Matlab es equivalente a programar en Matlab. Matlab cuenta con una biblioteca de c&aacute;lculo num&eacute;rico y de ingenier&iacute;a tan extensa como &uacute;til y el int&eacute;rprete es extensible mediante distintos lenguajes compilados como C y Fortran. Matlab tiene la gran virtud convertir en triviales tareas f&aacute;ciles como las operaciones elementales. Matlab, abreviatura de MATrix LABoratory, "laboratorio de matrices", como su nombre lo indica, trabaja con matrices siempre, por lo que se deben hacer ciertas consideraciones a la hora de realizar operaciones entre estas, tales como la multiplicaci&oacute;n de matrices, entre otros. Se encuentra disponible como aplicaci&oacute;n descargable e instalable en sistemas como Windows, OSX (Mac) y Linux. <a href="https://la.mathworks.com/products.html?s_tid=gn_ps">P&aacute;gina oficial de Productos MATLAB.</a></p><p>Aunque se tienen alternativas descargables, tambien existen opciones disponibles en l&iacute;nea (no descargables), tales como <a href="https://octave-online.net/">Octave Online</a>, la cual es una plataforma casi id&eacute;ntica a la sintaxis Matlab, con excepci&oacute;n de que en Octave Online se permiten algunos comandos e instrucciones que en Matlab no existen, un ejemplo son las instrucciones que se le pueden dar al declarar una variable, en Octave Online se le puede indicar que cierta variable es un entero positivo, etc. Una de las ventajas muy importantes de Octave es que es software libre (gratuito), que por otro lado, Matlab es un producto comercial. Tambi&eacute;n existen otras alternativas como <a href="https://jupyter.org/">Jupyter</a>, el cual trabaja con el lenguaje Python pero que igual es muy amigable. Matlab es un producto de MathWorks. Fue dise&ntilde;ado a finales de los 70 por Cleve Moler como una herramienta para evitar a sus estudiantes tener que aprender Fortran. Apareci&oacute; como producto comercial en el a&ntilde;o 1984 y desde entonces ha ido gandando adeptos, sobretodo en el campo del control lineal y no lineal y en la ingenier&iacute;a en general.</p><p><b>Cursos para Matlab y Octave:</b></p><div><ul><li><a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-094-introduction-to-matlab-january-iap-2010/index.htm">Matlab</a></li></ul></div><div><ul><li><a href="https://www.edx.org/es/course/matlab-octave-beginners-epflx-matlabeoctavebeginnersx">Octave y Matlab para Principiantes</a></li></ul></div><h2 id="2">Objetivos</h2><div><ul><li>Manipulaci&oacute;n b&aacute;sica de MATLAB</li><li>Gr&aacute;ficas de se&ntilde;ales reales y complejas continuas</li><li>Transformaci&oacute;n de se&ntilde;ales continuas (escalamientos y traslaciones)</li><li>Calculo de energ&iacute;a y potencia de se&ntilde;ales continuas</li></ul></div><h2 id="3">Desarrollo</h2><h2 id="4">Problema 1</h2><p>Creemos una funcion con el nombre fun1 que reciba dos parametros, como se muestra a continuacion:</p><pre class="language-matlab"><span class="keyword">function</span> [outputArg1] = fun1(a,w)
 outputArg1 = outputArg1 = a./(a^2. + w.^2);
 <span class="keyword">end</span>
 </pre><p>La funcion funciona para <img src="Prcatica2_V1_eq03953209412148241139.png" alt="$a \in R$"> y <img src="Prcatica2_V1_eq02358515919480007841.png" alt="$w \in R^n$">. Notece el uso del punto tanto en el numerador como en el denominador, esto se debe a que <img src="Prcatica2_V1_eq00125694759345388081.png" alt="$w$"> puede ser un escalar, un vector o una matriz, de ser as&iacute; el punto le indica a matlab que tando la divici&oacute;n como multiplicaci&oacute;n o cualquier otro operacion que involucre a <img src="Prcatica2_V1_eq00125694759345388081.png" alt="$w$"> la debe realizar por cada elemento dentro de <img src="Prcatica2_V1_eq00125694759345388081.png" alt="$w$">.</p><h2 id="5">Problema 2</h2><p>Ahora creemos una funcion de <img src="Prcatica2_V1_eq02145986785580767623.png" alt="$f:R\rightarrow R$"> que realice la operacion pasada con <img src="Prcatica2_V1_eq13016372792947090052.png" alt="$a=1$"> pero que grafique <img src="Prcatica2_V1_eq00125694759345388081.png" alt="$w$"> contra <img src="Prcatica2_V1_eq14837990414550488255.png" alt="$F(w)$">, para efectos practicos solo se mostrara el uso de la funcion y la grafica que esta genera. Primero se crear&aacute; el vector <img src="Prcatica2_V1_eq00125694759345388081.png" alt="$w$"> y posteriormente se llamara a nuestra funcion que mostrara la grafica a la cual llamaremos <i>fun2</i> que recibira a <img src="Prcatica2_V1_eq00125694759345388081.png" alt="$w$"> y <img src="Prcatica2_V1_eq05508344529756732484.png" alt="$a$">, tambien se le asignara a <img src="Prcatica2_V1_eq05508344529756732484.png" alt="$a$"> un valor de 1 para este ejemplo.</p><pre class="codeinput">w = -2:0.001:2;
 a = 1;
 fun2(w,a);
-</pre><img vspace="5" hspace="5" src="Prcatica2_V1_01.png" alt=""> <h2 id="7">Problema 3</h2><p>Para el siguiente problema construiremos una funcion <img src="Prcatica2_V1_eq18167946711972480189.png" alt="$f : R \rightarrow R^2$"> esta funcion <img src="Prcatica2_V1_eq14837990414550488255.png" alt="$F(w)$"> sera la transformada de Fourier de <img src="Prcatica2_V1_eq16179711886080607310.png" alt="$f(t)=e^{-2t}u(t)$"> para <img src="Prcatica2_V1_eq00465646246505001914.png" alt="$w=[-10,10]$">. A esta funcion la llamaremos <i>fun3</i> su unico parametro de entrada sera el valor el vector <img src="Prcatica2_V1_eq00125694759345388081.png" alt="$w$"> que contiene los valores en los que sera evaluada la funcion.</p><pre class="codeinput">w = -10:0.001:10;
-fun3(w);
+</pre><img vspace="5" hspace="5" src="Prcatica2_V1_01.png" alt=""> <h2 id="7">Problema 3</h2><p>Para el siguiente problema construiremos una funcion <img src="Prcatica2_V1_eq18167946711972480189.png" alt="$f : R \rightarrow R^2$"> esta funcion <img src="Prcatica2_V1_eq14837990414550488255.png" alt="$F(w)$"> sera la transformada de Fourier de <img src="Prcatica2_V1_eq16179711886080607310.png" alt="$f(t)=e^{-2t}u(t)$"> para <img src="Prcatica2_V1_eq00465646246505001914.png" alt="$w=[-10,10]$">. Para la funcion <img src="Prcatica2_V1_eq09478123530129115431.png" alt="$f(t)$"> la variable temporal sera de <img src="Prcatica2_V1_eq00079223472775647060.png" alt="$t = [-1,5]$"> y para la funcion <img src="Prcatica2_V1_eq14837990414550488255.png" alt="$F(w)$"> la variable de la frecuencia sera de <img src="Prcatica2_V1_eq02116455866832734346.png" alt="$w = [-10,10]$">.</p><p>Para graficar ambas funciones ocuparemos una funcion definida por nosotros llamada <i>fun3</i>, la cual recibe de argumento dominio de la funcion y la funcion que se desea graficar.</p><pre class="codeinput">t = -1:0.001:5;
+f=@(t)exp(-2.*t).*(t&gt;=0);
+w = -10:0.001:10;
+g =@(w)1./(2+w.*i);
+fun3(t,f(t));
+fun3(w,g(w));
 </pre><img vspace="5" hspace="5" src="Prcatica2_V1_02.png" alt=""> <img vspace="5" hspace="5" src="Prcatica2_V1_03.png" alt=""> <img vspace="5" hspace="5" src="Prcatica2_V1_04.png" alt=""> <img vspace="5" hspace="5" src="Prcatica2_V1_05.png" alt=""> <h2 id="9">Problema 4</h2><p><b>M1.1 Funciones Inline (aqui son an&oacute;nimas)</b></p><p>Se define la funci&oacute;n como una fuci&oacute;n an&oacute;nima con la siguiente sintaxis "nombredelafuncion=@(argumentos) expresionmatematica"</p><pre class="codeinput">f=@(t) exp(-t).*cos(2*pi*t);
 </pre><p>Se le puede pasar como argumento una variable</p><pre class="codeinput">t=0;
 f(t)
@@ -210,7 +214,137 @@ title(<span class="string">'x(2-t)'</span>);
 ax = gca;
 ax.XAxisLocation = <span class="string">'origin'</span>;
 ax.YAxisLocation = <span class="string">'origin'</span>;
-</pre><img vspace="5" hspace="5" src="Prcatica2_V1_19.png" alt=""> <h2 id="75">Problema 6</h2><h2 id="76">Problema 7</h2><h2 id="77">Referencias</h2><div><ol><li>Guillem Borrell i Nogueras. (2007). <i>Octave: Una alternativa real a Matlab a coste cero.</i> Marzo 31, 2019, de Universidad Polit&eacute;cnica de Madria Sitio web: <a href="https://torroja.dmt.upm.es/media/files/paper_logrono.pdf">https://torroja.dmt.upm.es/media/files/paper_logrono.pdf</a></li><li>Mart&iacute;nez   R.,Senales   y   Sistemas:   Una   perspectiva. Recuperado   19   marzo,   2019,   de <a href="http://rafneta.github.io">&lt;http://rafneta.github.io</a>&gt;</li><li>Lathi, B. P.. (2005). Linear Systems and Signals. New York: Oxford University Press, Inc.</li></ol></div><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+</pre><img vspace="5" hspace="5" src="Prcatica2_V1_19.png" alt=""> <h2 id="75">Problema 6</h2><p>Funcion que calcula la energia de una se&ntilde;al al ingresar una funcion simbolica o anonima</p><pre class="codeinput"><span class="comment">%function [ex] = energia(y,linf,lsup) % La funcion energia pide un limite inferior y un limite superior</span>
+<span class="comment">%v=isa(y,'function_handle');% Se comprueba si la se&ntilde;al es una funcion anonima</span>
+<span class="comment">%if v==1</span>
+<span class="comment">%    t=linf:0.01:lsup;</span>
+<span class="comment">%    ex=sum(y(t).*y(t).*0.01); % Se usa la funcion sum para se&ntilde;ales anonimas</span>
+<span class="comment">%else</span>
+<span class="comment">%    syms t; % Se declara la variable simbolica para funciones simbolicas</span>
+<span class="comment">%    ex=int(y^2,t,linf,lsup); % Se realiza la integral usando la funcion int</span>
+<span class="comment">%end</span>
+<span class="comment">%end</span>
+</pre><p>A continuacion como prueba se resolvera el Problema Propuesto 1.1.3 del Lathi</p><p><b>Problema 1.1.3</b></p><p>Encuentra las energias del par de se&ntilde;ales x(t) y y(t) y la energia de x(t) + y(t) y x(t) - y(t)</p><div><ul><li><b>a.1.-</b> Primero se definen las se&ntilde;ales x(t) y y(t), en este caso como funciones anonimas, dado que estan definidas a trozos.</li></ul></div><pre class="codeinput">x=@(t) 1*((t&gt;=0)&amp;(t&lt;2));
+y=@(t) 1*((t&gt;=0)&amp;(t&lt;1))-1*((t&gt;=1)&amp;(t&lt;2));
+</pre><p>A continuacion se llama a la funcion energia que nos devolvera el calculo de las energias de las se&ntilde;ales</p><p>La energia de la se&ntilde;al x:</p><pre class="codeinput">energia(x,0,2)
+</pre><pre class="codeoutput">
+ans =
+
+    2.0000
+
+</pre><p>La energia de la se&ntilde;al y:</p><pre class="codeinput">energia(y,0,2)
+</pre><pre class="codeoutput">
+ans =
+
+    2.0000
+
+</pre><p>La energia de la se&ntilde;al x(t) + y(t):</p><pre class="codeinput">xy1=@(t) 2*((t&gt;=0)&amp;(t&lt;1));<span class="comment">%xy1 = x(t)+ y(t)</span>
+energia(xy1,0,2)
+</pre><pre class="codeoutput">
+ans =
+
+    4.0000
+
+</pre><p>La energia de la se&ntilde;al x(t) - y(t):</p><pre class="codeinput">xy2=@(t) 2*((t&gt;=1)&amp;(t&lt;2));<span class="comment">%xy1 = x(t)- y(t)</span>
+energia(xy2,0,2)
+</pre><pre class="codeoutput">
+ans =
+
+    4.0000
+
+</pre><p>Como podemos observar la energia de la se&ntilde;al x(t) + y(t) es igual a la de la se&ntilde;al x(t) - y(t)</p><div><ul><li><b>a.2.-</b> Se definen las se&ntilde;ales x(t) y y(t) como funciones simbolicas</li></ul></div><pre class="codeinput">syms <span class="string">t</span>;
+x=sin(t);
+y=1;
+</pre><p>A continuacion se llama a la funcion energia que nos devolvera el calculo de las energias de las se&ntilde;ales</p><p>La energia de la se&ntilde;al x:</p><pre class="codeinput">energia(x,0,2*pi)
+</pre><pre class="codeoutput"> 
+ans =
+ 
+pi
+ 
+</pre><p>La energia de la se&ntilde;al y:</p><pre class="codeinput">energia(y,0,2*pi)
+</pre><pre class="codeoutput"> 
+ans =
+ 
+2*pi
+ 
+</pre><p>La energia de la se&ntilde;al x(t) + y(t):</p><pre class="codeinput">energia(x+y,0,2*pi)
+</pre><pre class="codeoutput"> 
+ans =
+ 
+3*pi
+ 
+</pre><p>La energia de la se&ntilde;al x(t) - y(t):</p><pre class="codeinput">energia(x-y,0,2*pi)
+</pre><pre class="codeoutput"> 
+ans =
+ 
+3*pi
+ 
+</pre><p>Como podemos observar la energia de la se&ntilde;al x(t) + y(t) es igual a la de la se&ntilde;al x(t) - y(t)</p><div><ul><li><b>b.-</b> % Se definen las se&ntilde;ales x(t) y y(t) como funciones simbolicas</li></ul></div><pre class="codeinput">syms <span class="string">t</span>;
+x=sin(t);
+y=1;
+</pre><p>A continuacion se llama a la funcion energia que nos devolvera el calculo de las energias de las se&ntilde;ales</p><p>La energia de la se&ntilde;al x:</p><pre class="codeinput">energia(x,0,pi)
+</pre><pre class="codeoutput"> 
+ans =
+ 
+pi/2
+ 
+</pre><p>La energia de la se&ntilde;al y:</p><pre class="codeinput">energia(y,0,pi)
+</pre><pre class="codeoutput"> 
+ans =
+ 
+pi
+ 
+</pre><p>La energia de la se&ntilde;al x(t) + y(t):</p><pre class="codeinput">energia(x+y,0,pi)
+</pre><pre class="codeoutput"> 
+ans =
+ 
+(3*pi)/2 + 4
+ 
+</pre><p>La energia de la se&ntilde;al x(t) - y(t):</p><pre class="codeinput">energia(x-y,0,pi)
+</pre><pre class="codeoutput"> 
+ans =
+ 
+(3*pi)/2 - 4
+ 
+</pre><p>Como podemos observar la energia de la se&ntilde;al x(t) + y(t) ya no es igual a la de la se&ntilde;al x(t) - y(t)</p><h2 id="108">Problema 7</h2><p>Funcion que calcula la potencia de una se&ntilde;al al ingresar una expresion simbolica o anonima</p><pre class="codeinput"><span class="comment">%function [ex] = potencia(y,linf,lsup) % La funcion potencia pide un limite inferior y un limite superior</span>
+<span class="comment">%T=lsup-linf;</span>
+<span class="comment">%v=isa(y,'function_handle');</span>
+<span class="comment">%if v==1</span>
+<span class="comment">%    t=linf:0.01:lsup;</span>
+<span class="comment">%    px=(1/T).*sum(y(t).*y(t).*0.01);</span>
+<span class="comment">%else</span>
+<span class="comment">%    syms t;</span>
+<span class="comment">%    px=(1/T)*int(y^2,t,linf,lsup);</span>
+<span class="comment">%end</span>
+<span class="comment">%end</span>
+</pre><p>A continuacion como prueba se resolvera el Problema Propuesto 1.1.4 del Lathi</p><p><b>Problema 1.1.4</b></p><p>Encuentra la potencia de la se&ntilde;al periodica x(t). Se define la se&ntilde;al de forma simbolica:</p><pre class="codeinput">syms <span class="string">t</span>;
+x=t^3;
+</pre><p>A continuacion se llama a la funcion energia que nos devolvera el calculo de la potencia de la se&ntilde;al</p><pre class="codeinput">potencia(x,-2,2)
+</pre><pre class="codeoutput"> 
+ans =
+ 
+64/7
+ 
+</pre><p>Adicionalmente calcule las potencias y los valores rms de:</p><div><ul><li><b>-x(t)</b></li></ul></div><pre class="codeinput">potencia(-x,-2,2)
+</pre><pre class="codeoutput"> 
+ans =
+ 
+64/7
+ 
+</pre><p>Podemos observar que la potencia de la se&ntilde;al -x(t) es la misma que la de la se&ntilde;al x(t)</p><div><ul><li><b>2x(t)</b></li></ul></div><pre class="codeinput">potencia(2*x,-2,2)
+</pre><pre class="codeoutput"> 
+ans =
+ 
+256/7
+ 
+</pre><div><ul><li><b>cx(t)</b></li></ul></div><pre class="codeinput">syms <span class="string">c</span>;
+potencia(c*x,-2,2)
+</pre><pre class="codeoutput"> 
+ans =
+ 
+(64*c^2)/7
+ 
+</pre><p>La energia de la se&ntilde;al cx(t) es la energia de la se&ntilde;al x(t) multiplicada por <img src="Prcatica2_V1_eq03583822326600999151.png" alt="$c^{2}$"></p><h2 id="120">Referencias</h2><div><ol><li>Guillem Borrell i Nogueras. (2007). <i>Octave: Una alternativa real a Matlab a coste cero.</i> Marzo 31, 2019, de Universidad Polit&eacute;cnica de Madria Sitio web: <a href="https://torroja.dmt.upm.es/media/files/paper_logrono.pdf">https://torroja.dmt.upm.es/media/files/paper_logrono.pdf</a></li><li>Mart&iacute;nez   R.,Senales   y   Sistemas:   Una   perspectiva. Recuperado   19   marzo,   2019,   de <a href="http://rafneta.github.io">&lt;http://rafneta.github.io</a>&gt;</li><li>Lathi, B. P.. (2005). Linear Systems and Signals. New York: Oxford University Press, Inc.</li></ol></div><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Práctica 02: Señales en tiempo continuo
 %
@@ -224,9 +358,10 @@ ax.YAxisLocation = <span class="string">'origin'</span>;
 %
 % *Alumnos:*
 % 
+% * Carmona Bellido Marco Tulio
+%
 % * Ordorica Muñoz Leonardo Antonio
 %
-% * Carmona Bellido Marco Tulio
 %% Introducción
 % MATLAB es un lenguaje de programación interpretado e interactivo, esto significa que a diferencia de C o
 % Fortran no se generan ejecutables sino que un programa llamado interprete recibe órdenes y las ejecuta.
@@ -296,12 +431,20 @@ fun2(w,a);
 % Para el siguiente problema construiremos una funcion $f : R \rightarrow R^2$
 % esta funcion $F(w)$ sera la transformada de Fourier de $f(t)=e^{-2t}u(t)$
 % para $w=[-10,10]$.
-% A esta funcion la llamaremos _fun3_ su unico parametro de entrada sera el
-% valor el vector $w$ que contiene los valores en los que sera evaluada la
-% funcion.
+% Para la funcion $f(t)$ la variable temporal sera de $t = [-1,5]$ y 
+% para la funcion $F(w)$ la variable de la frecuencia sera de $w =
+% [-10,10]$.
+%
+% Para graficar ambas funciones ocuparemos una funcion definida por
+% nosotros llamada _fun3_, la cual recibe de argumento dominio de la funcion y la funcion
+% que se desea graficar.
 %%
+t = -1:0.001:5;
+f=@(t)exp(-2.*t).*(t>=0); 
 w = -10:0.001:10;
-fun3(w);
+g =@(w)1./(2+w.*i);
+fun3(t,f(t));
+fun3(w,g(w));
 %% Problema 4
 % *M1.1 Funciones Inline (aqui son anónimas)*
 %
@@ -599,8 +742,167 @@ ax.XAxisLocation = 'origin';
 ax.YAxisLocation = 'origin';
 %%
 %% Problema 6
+% Funcion que calcula la energia de una señal al ingresar una funcion
+% simbolica o anonima
+%%
+%function [ex] = energia(y,linf,lsup) % La funcion energia pide un limite inferior y un limite superior
+%v=isa(y,'function_handle');% Se comprueba si la señal es una funcion anonima
+%if v==1
+%    t=linf:0.01:lsup;
+%    ex=sum(y(t).*y(t).*0.01); % Se usa la funcion sum para señales anonimas
+%else
+%    syms t; % Se declara la variable simbolica para funciones simbolicas
+%    ex=int(y^2,t,linf,lsup); % Se realiza la integral usando la funcion int
+%end
+%end
+%%
+% A continuacion como prueba se resolvera el Problema Propuesto 1.1.3 del
+% Lathi
+%
+% *Problema 1.1.3*
+%
+% Encuentra las energias del par de señales x(t) y y(t) y la energia
+% de x(t) + y(t) y x(t) - y(t)
+%
+% * *a.1.-*
+% Primero se definen las señales x(t) y y(t), en este caso como funciones
+% anonimas, dado que estan definidas a trozos.
+%%
+x=@(t) 1*((t>=0)&(t<2));
+y=@(t) 1*((t>=0)&(t<1))-1*((t>=1)&(t<2));
+%%
+% A continuacion se llama a la funcion energia que nos devolvera el calculo
+% de las energias de las señales
+%
+% La energia de la señal x:
+%%
+energia(x,0,2)
+%%
+% La energia de la señal y:
+%%
+energia(y,0,2)
+%%
+% La energia de la señal x(t) + y(t):
+%%
+xy1=@(t) 2*((t>=0)&(t<1));%xy1 = x(t)+ y(t)
+energia(xy1,0,2)
+%%
+% La energia de la señal x(t) - y(t):
+%%
+xy2=@(t) 2*((t>=1)&(t<2));%xy1 = x(t)- y(t)
+energia(xy2,0,2)
+%%
+% Como podemos observar la energia de la señal x(t) + y(t) es igual a la de
+% la señal x(t) - y(t)
+%
+% * *a.2.-*
+% Se definen las señales x(t) y y(t) como funciones simbolicas
+%%
+syms t;
+x=sin(t);
+y=1;
+%%
+% A continuacion se llama a la funcion energia que nos devolvera el calculo
+% de las energias de las señales
+%
+% La energia de la señal x:
+%%
+energia(x,0,2*pi)
+%%
+% La energia de la señal y:
+%%
+energia(y,0,2*pi)
+%%
+% La energia de la señal x(t) + y(t):
+%%
+energia(x+y,0,2*pi)
+%%
+% La energia de la señal x(t) - y(t):
+%%
+energia(x-y,0,2*pi)
+%%
+% Como podemos observar la energia de la señal x(t) + y(t) es igual a la de
+% la señal x(t) - y(t)
+%
+% * *b.-*
+% % Se definen las señales x(t) y y(t) como funciones simbolicas
+%%
+syms t;
+x=sin(t);
+y=1;
+%%
+% A continuacion se llama a la funcion energia que nos devolvera el calculo
+% de las energias de las señales
+%
+% La energia de la señal x:
+%%
+energia(x,0,pi)
+%%
+% La energia de la señal y:
+%%
+energia(y,0,pi)
+%%
+% La energia de la señal x(t) + y(t):
+%%
+energia(x+y,0,pi)
+%%
+% La energia de la señal x(t) - y(t):
+%%
+energia(x-y,0,pi)
+%%
+% Como podemos observar la energia de la señal x(t) + y(t) ya no es igual a la de
+% la señal x(t) - y(t)
 %
 %% Problema 7
+% Funcion que calcula la potencia de una señal al ingresar una expresion simbolica o
+% anonima
+%%
+%function [ex] = potencia(y,linf,lsup) % La funcion potencia pide un limite inferior y un limite superior
+%T=lsup-linf;
+%v=isa(y,'function_handle');
+%if v==1
+%    t=linf:0.01:lsup;
+%    px=(1/T).*sum(y(t).*y(t).*0.01);
+%else
+%    syms t;
+%    px=(1/T)*int(y^2,t,linf,lsup);
+%end
+%end
+%%
+% A continuacion como prueba se resolvera el Problema Propuesto 1.1.4 del Lathi
+%
+% *Problema 1.1.4*
+%
+% Encuentra la potencia de la señal periodica x(t).
+% Se define la señal de forma simbolica:
+syms t;
+x=t^3;
+%%
+% A continuacion se llama a la funcion energia que nos devolvera el calculo
+% de la potencia de la señal
+%%
+potencia(x,-2,2)
+%%
+% Adicionalmente calcule las potencias y los valores rms de:
+%
+% * *-x(t)*
+%%
+potencia(-x,-2,2)
+%%
+% Podemos observar que la potencia de la señal -x(t) es la misma que la de
+% la señal x(t)
+%
+% * *2x(t)*
+%%
+potencia(2*x,-2,2)
+%%
+% * *cx(t)*
+%%
+syms c;
+potencia(c*x,-2,2)
+%%
+% La energia de la señal cx(t) es la energia de la señal x(t) multiplicada
+% por $c^{2}$
 %
 %% Referencias
 % # Guillem Borrell i Nogueras. (2007). _Octave: Una alternativa real a Matlab a coste cero._ Marzo 31, 2019,
