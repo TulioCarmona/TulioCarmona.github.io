@@ -1,0 +1,298 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Pr&aacute;ctica 03: Se&ntilde;ales en tiempo discreto</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-04-16"><meta name="DC.source" content="P3.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Pr&aacute;ctica 03: Se&ntilde;ales en tiempo discreto</h1><!--introduction--><p><b>Intituto Polit&eacute;cnico Nacional</b></p><p><b>Unidad Profesional Interdisciplinaria en Ingenier&iacute;a y Tecnolog&iacute;as Avanzadas</b></p><p><b>An&aacute;lisis de Se&ntilde;ales y Sistemas</b></p><p><b>Grupo: 2MV1</b></p><p><b>Alumnos:</b></p><div><ul><li>Carmona Bellido Marco Tulio</li></ul></div><div><ul><li>Ordorica Mu&ntilde;oz Leonardo Antonio</li></ul></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Introducci&oacute;n</a></li><li><a href="#6">Objetivos</a></li><li><a href="#7">Desarrollo</a></li><li><a href="#8">Problema 1</a></li><li><a href="#9">Problema 2</a></li><li><a href="#10">Problema 3</a></li><li><a href="#11">Problema 4</a></li><li><a href="#13">Problema 5</a></li><li><a href="#16">Problema 6</a></li><li><a href="#20">Referencias</a></li></ul></div><h2 id="1">Introducci&oacute;n</h2><p>Al trabajar con se&ntilde;ales en tiempo discreto se complica un poco al momento de realizar operaciones con dichas se&ntilde;ales, debido a que estan definidas solo para numeros enteros. Por lo tanto al realizar un escalamiento horizontal, si este queda definido para un numero decimal, se perderian los datos que quedaban contenidos en esos puntos.</p><p>Lo que se hace es quedarnos con los enteros definidos en el intervalo despues de realizar el escalamiento.</p><p>Si la operaci&oacute;n realizada es una compresi&oacute;n y se pierden datos de los extremos, se llama Decimation.</p><p>Si la operaci&oacute;n realizada es una expansi&oacute;n se a la perdida de datos se le llama Interpolation.</p><p>A los puntos donde pudieran faltar esos datos se les puede considerar que son cero, que no estan definidos o se le puede hacer una interpolaci&oacute;n.</p><p>La interpolaci&oacute;n consiste en tomar la altura anterior al punto m&aacute;s la altura siguiente al punto y dividir esa suma entre 2. Asi se estar&iacute;a definiendo esa altura con ese valor.</p><p>Por ejemplo:</p><p>La funci&oacute;n definida por:</p><p><img vspace="5" hspace="5" src="grafo1.png" alt=""> </p><p>Con gr&aacute;fica:</p><p><img vspace="5" hspace="5" src="grafo2.jpg" alt=""> </p><p>Al aplicarle un escalamiento horizontal de la forma f[2n] la funcion queda definida asi:</p><p><img vspace="5" hspace="5" src="grafo3.png" alt=""> </p><p>Como podemos observar queda definido para numeros decimales pero las se&ntilde;ales en tiempo discreto solo estan definidas para numeros enteros por lo que solo se consideran los enteros dentro de esos intervalos, asi que la grafica de la se&ntilde;al quedaria asi:</p><p><img vspace="5" hspace="5" src="grafo4.jpg" alt=""> </p><p>Cabe destacar que en este ejemplo se consideraron las alturas que no estaban definidas como ceros.</p><p>Con eso se ejemplifican los problemas que se tienen al realizar un escalamiento horizontal en se&ntilde;ales en tiempo discreto.</p><h2 id="6">Objetivos</h2><div><ul><li>Manipulaci&oacute;n b&aacute;sica de MATLAB</li><li>Gr&aacute;ficas de se&ntilde;ales reales y complejas discretas</li><li>Transformaci&oacute;n de se&ntilde;ales discretas (escalamientos y traslaciones)</li><li>Calculo de energ&iacute;a y potencia de se&ntilde;ales discretas</li></ul></div><h2 id="7">Desarrollo</h2><h2 id="8">Problema 1</h2><p>Se crea una funcion <img src="P3_eq03888364752957311660.png" alt="$f:N \rightarrow R$"> la funcion la llamaremos <i>fun1</i> y regreseara la evaluaci&oacute;n de <img src="P3_eq03646802660506946535.png" alt="$f[n]=r^ncos[\Omega n]+ r^nsen(\Omega n)j$">, para que se pueda ejecutar se le tendra que enviar el valor de <i>r</i> y de <img src="P3_eq01003107565813904020.png" alt="$\Omega$"> asi como el funto en que se desea evaliar la funcion que en este caso ser&aacute; <img src="P3_eq09550072095128397067.png" alt="$n_0$">.</p><pre class="language-matlab"><span class="keyword">function</span> [a] = fun1(r,w,n0)
+f = @(n) (r.^n).*cos(w.*n) + (r.^n).*sin(w.*n)*i;
+a = f(n0);
+<span class="keyword">end</span>
+</pre><h2 id="9">Problema 2</h2><p>A continuacu&oacute;n crearemos una funcion de matlab <i>fun2</i> que grafique en tiempo discreto la siguiente funci&oacute;n <img src="P3_eq14492615976455928922.png" alt="$x[n]=na^nu[n]$"> para <img src="P3_eq02941357231986887900.png" alt="$n= -2,...,10$"> y con <img src="P3_eq00212765013998882747.png" alt="$a=0.9$">. A la funcion solo se le enviaran los parametros pues estara previamente definida para evaluar la funcion antes mensionada.</p><pre class="codeinput">n = -2:10;
+a = 0.9;
+fun2(n,a)
+</pre><img vspace="5" hspace="5" src="P3_01.png" alt=""> <h2 id="10">Problema 3</h2><p>Ahora crearemos una funcion <i>fun3</i> que va de <img src="P3_eq00225549005825272617.png" alt="$f:N \rightarrow R^2$"> la funcion evaluada sera la descrita en el problema 1 para cual se tomaran los siguientes valores <img src="P3_eq12706977765372392117.png" alt="$r=1.1$">, <img src="P3_eq16765915318315886624.png" alt="$\Omega = 0.5$"> y <img src="P3_eq10230466272980210131.png" alt="$n = -2,...,20$">.</p><p>Tambien se mostraran sus graficas de espectro de fase y magnitud.</p><pre class="codeinput">r = 1.1;
+w = 0.5;
+n = -2:20;
+fun3(n,fun1(r,w,n))
+</pre><img vspace="5" hspace="5" src="P3_02.png" alt=""> <img vspace="5" hspace="5" src="P3_03.png" alt=""> <img vspace="5" hspace="5" src="P3_04.png" alt=""> <h2 id="11">Problema 4</h2><p>Funcion que calcula la energia de una se&ntilde;al discreta pasandole como par&aacute;metros un vector de tiempo y las alturas asignadas a cada entero del vector de tiempo e imprime la gr&aacute;fica de la se&ntilde;al.</p><pre class="language-matlab"><span class="keyword">function</span> [ex] = energiadis(tiempo,alturas) <span class="comment">% La funcion energia pide un limite inferior y un limite superior</span>
+ex=sum(alturas.*alturas); <span class="comment">% Se usa la funcion sum para sumar todas las alturas de la se&ntilde;al</span>
+stem(tiempo,alturas)
+xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'x[n]'</span>);
+grid <span class="string">on</span>;
+title(<span class="string">'Gr&aacute;fica de la se&ntilde;al ingresada'</span>);
+axis([min(tiempo)-2 max(tiempo)+2 min(alturas)-2 max(alturas)+2]);
+ax = gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+<span class="keyword">end</span>
+</pre><h2 id="13">Problema 5</h2><p>Resuelva el problema 3.1.1 c) de Lathi, aplicando su funci&oacute;n anterior El inciso c) del problema 3.1.1 de Lathi tiene una se&ntilde;al definida de -3 a 3, para todas los demas enteros es cero.</p><p>A esos tiempos le corresponden las alturas definidas por la funci&oacute;n x[n]=3n;</p><p>A continuaci&oacute;n se utiliza la funci&oacute;n energiadis con esos datos:</p><pre class="codeinput">n=-3:3;
+x=3*n;
+energiadis(n,x)
+</pre><pre class="codeoutput">
+ans =
+
+   252
+
+</pre><img vspace="5" hspace="5" src="P3_05.png" alt=""> <p>Como podemos observar la funci&oacute;n energiadis trabaja adecuadamente.</p><h2 id="16">Problema 6</h2><p>Se tiene la se&ntilde;al ilustrada a continuacion:</p><p><img vspace="5" hspace="5" src="grafo5.png" alt=""> </p><p>La se&ntilde;al anterior la podemos expresar matematicamente como:</p><p><img src="P3_eq06058396780181635806.png" alt="$x[n] = n$"> para <img src="P3_eq15441982592740149181.png" alt="$0<=n<=3$"> y  <img src="P3_eq15176593447928440362.png" alt="$-n+6$"> para <img src="P3_eq06376752777933067893.png" alt="$4<=n<=6$">.</p><p>En matlab la describiremos como:</p><p><img src="P3_eq10085509577295034740.png" alt="$x = @(n) n.*(n&gt;=0).*(n<=3) + (-n+6).*(n&gt;3).*(n<=6)$"></p><p>Se busca graficar:</p><div><ol><li><img src="P3_eq09779432803121043151.png" alt="$x[-n]$">.</li><li><img src="P3_eq13620129492043279934.png" alt="$x[n+6]$">.</li><li><img src="P3_eq12217486176770116509.png" alt="$x[n-6]$">.</li><li><img src="P3_eq03858777271815293468.png" alt="$x[3n]$">.</li><li><img src="P3_eq16742595954667556934.png" alt="$x[n/3]$">.</li><li><img src="P3_eq13517998047468310651.png" alt="$x[3-n]$">.</li></ol></div><p>Para poder graficar todas las funciones anteriores se definira una  de <img src="P3_eq16939295746438765362.png" alt="$n=-10,...,20$">, asi todas las funciones podrn ser mostradas dentro del mismo dominio.</p><p>Primero definimos la funcion y los valores de &amp;n&amp;.</p><pre class="codeinput">n = -10:20;
+M = [-1,0; 1,6; 1,-6; 3,0; 1/3,0; -1,3];
+x = @(n) n.*(n&gt;=0).*(n&lt;=3) + (-n+6).*(n&gt;3).*(n&lt;=6);
+</pre><p>Notoce que se incluyo una matriz "M" cuya informacion el el termino que multiplica a <img src="P3_eq08984225997457563733.png" alt="$n$"> y el termino que se suma.</p><p>Ahora procedemos a graficar cada una de las funciones enumeradas anteriormente.</p><pre class="codeinput"><span class="keyword">for</span> i = 1:6
+    figure
+    stem(n,x(n*M(i,1) + M(i,2)))
+    title(i)
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="P3_06.png" alt=""> <img vspace="5" hspace="5" src="P3_07.png" alt=""> <img vspace="5" hspace="5" src="P3_08.png" alt=""> <img vspace="5" hspace="5" src="P3_09.png" alt=""> <img vspace="5" hspace="5" src="P3_10.png" alt=""> <img vspace="5" hspace="5" src="P3_11.png" alt=""> <h2 id="20">Referencias</h2><div><ol><li>Mart&iacute;nez   R.,Senales   y   Sistemas:   Una   perspectiva. Recuperado   19   marzo,   2019,   de <a href="http://rafneta.github.io">&lt;http://rafneta.github.io</a>&gt;</li><li>Lathi, B. P.. (2005). Linear Systems and Signals. New York: Oxford University Press, Inc.</li><li>Mart&iacute;nez, R. [Mate y as&iacute;]. (2018 Agosto 17). Escalamiento horizontal de se&ntilde;ales en tiempo discreto (6) [Video]. Recuperado de <a href="https://www.youtube.com/watch?v=lpFU5D7oY1w">https://www.youtube.com/watch?v=lpFU5D7oY1w</a></li></ol></div><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Práctica 03: Señales en tiempo discreto
+%
+% *Intituto Politécnico Nacional*
+%
+% *Unidad Profesional Interdisciplinaria en Ingeniería y Tecnologías Avanzadas*
+%
+% *Análisis de Señales y Sistemas*
+%
+% *Grupo: 2MV1*
+%
+% *Alumnos:*
+% 
+% * Carmona Bellido Marco Tulio
+%
+% * Ordorica Muñoz Leonardo Antonio
+%
+%% Introducción
+% Al trabajar con señales en tiempo discreto se complica un poco al momento
+% de realizar operaciones con dichas señales, debido a que estan definidas
+% solo para numeros enteros.
+% Por lo tanto al realizar un escalamiento horizontal, si este queda
+% definido para un numero decimal, se perderian los datos que quedaban
+% contenidos en esos puntos.
+% 
+% Lo que se hace es quedarnos con los enteros definidos en el intervalo
+% despues de realizar el escalamiento.
+%
+% Si la operación realizada es una compresión y se pierden datos de los
+% extremos, se llama Decimation.
+%
+% Si la operación realizada es una expansión se a la perdida de datos se le
+% llama Interpolation.
+%
+% A los puntos donde pudieran faltar esos datos se les puede considerar que
+% son cero, que no estan definidos o se le puede hacer una interpolación.
+%
+% La interpolación consiste en tomar la altura anterior al punto más la
+% altura siguiente al punto y dividir esa suma entre 2. Asi se estaría
+% definiendo esa altura con ese valor.
+% 
+% Por ejemplo:
+%
+% La función definida por:
+%%
+% <<grafo1.png>>
+%
+% Con gráfica:
+%%
+% <<grafo2.jpg>>
+%
+% Al aplicarle un escalamiento horizontal de la forma f[2n] la funcion
+% queda definida asi:
+%%
+% <<grafo3.png>>
+%
+% Como podemos observar queda definido para numeros decimales pero las
+% señales en tiempo discreto solo estan definidas para numeros enteros por
+% lo que solo se consideran los enteros dentro de esos intervalos, asi que
+% la grafica de la señal quedaria asi:
+%%
+% <<grafo4.jpg>>
+%
+% Cabe destacar que en este ejemplo se consideraron las alturas que no
+% estaban definidas como ceros.
+%
+% Con eso se ejemplifican los problemas que se tienen al realizar un
+% escalamiento horizontal en señales en tiempo discreto.
+%
+%% Objetivos
+% * Manipulación básica de MATLAB
+% * Gráficas de señales reales y complejas discretas
+% * Transformación de señales discretas (escalamientos y traslaciones)
+% * Calculo de energía y potencia de señales discretas
+%% Desarrollo
+% 
+%% Problema 1
+% Se crea una funcion $f:N \rightarrow R$ la funcion la llamaremos _fun1_ y
+% regreseara la evaluación de $f[n]=r^ncos[\Omega n]+ r^nsen(\Omega n)j$,
+% para que se pueda ejecutar se le tendra que enviar el valor de _r_ y de
+% $\Omega$ asi como el funto en que se desea evaliar la funcion que en este
+% caso será $n_0$.
+%
+%   function [a] = fun1(r,w,n0)
+%   f = @(n) (r.^n).*cos(w.*n) + (r.^n).*sin(w.*n)*i;
+%   a = f(n0);
+%   end
+%% Problema 2
+% A continuacuón crearemos una funcion de matlab _fun2_ que grafique en tiempo
+% discreto la siguiente función $x[n]=na^nu[n]$ para $n= -2,...,10$ y con
+% $a=0.9$. A la funcion solo se le enviaran los parametros pues estara
+% previamente definida para evaluar la funcion antes mensionada.
+%
+n = -2:10;
+a = 0.9;
+fun2(n,a)
+%% Problema 3
+% Ahora crearemos una funcion _fun3_ que va de $f:N \rightarrow R^2$ la funcion
+% evaluada sera la descrita en el problema 1 para cual se tomaran los
+% siguientes valores $r=1.1$, $\Omega = 0.5$ y $n = -2,...,20$.
+%
+% Tambien se mostraran sus graficas de espectro de fase y magnitud.
+%
+r = 1.1;
+w = 0.5;
+n = -2:20;
+fun3(n,fun1(r,w,n))
+
+%% Problema 4
+% Funcion que calcula la energia de una señal discreta pasandole como
+% parámetros un vector de tiempo y las alturas asignadas a cada entero del
+% vector de tiempo e imprime la gráfica de la señal.
+%%
+%   function [ex] = energiadis(tiempo,alturas) % La funcion energia pide un limite inferior y un limite superior
+%   ex=sum(alturas.*alturas); % Se usa la funcion sum para sumar todas las alturas de la señal
+%   stem(tiempo,alturas)
+%   xlabel('n'); ylabel('x[n]'); 
+%   grid on;
+%   title('Gráfica de la señal ingresada');
+%   axis([min(tiempo)-2 max(tiempo)+2 min(alturas)-2 max(alturas)+2]);
+%   ax = gca;
+%   ax.XAxisLocation = 'origin';
+%   ax.YAxisLocation = 'origin';
+%   end
+%
+%% Problema 5
+% Resuelva el problema 3.1.1 c) de Lathi, aplicando su función anterior
+% El inciso c) del problema 3.1.1 de Lathi tiene una señal definida de -3 a
+% 3, para todas los demas enteros es cero.
+%
+% A esos tiempos le corresponden las alturas definidas por la función
+% x[n]=3n;
+%
+% A continuación se utiliza la función energiadis con esos datos:
+%
+%%
+n=-3:3;
+x=3*n;
+energiadis(n,x)
+%%
+% Como podemos observar la función energiadis trabaja adecuadamente.
+%% Problema 6
+% Se tiene la señal ilustrada a continuacion:
+%%
+% <<grafo5.png>>
+%
+% La señal anterior la podemos expresar matematicamente como:
+%
+% $x[n] = n$ para $0<=n<=3$ y  $-n+6$ para $4<=n<=6$.
+%
+% En matlab la describiremos como:
+%
+% $x = @(n) n.*(n>=0).*(n<=3) + (-n+6).*(n>3).*(n<=6)$
+%
+% Se busca graficar:
+%%
+% # $x[-n]$.
+% # $x[n+6]$.
+% # $x[n-6]$.
+% # $x[3n]$.
+% # $x[n/3]$.
+% # $x[3-n]$.
+%
+% Para poder graficar todas las funciones anteriores se definira una  de
+% $n=-10,...,20$, asi todas las funciones podrn ser mostradas dentro del
+% mismo dominio.
+%
+% Primero definimos la funcion y los valores de &n&.
+n = -10:20;
+M = [-1,0; 1,6; 1,-6; 3,0; 1/3,0; -1,3];
+x = @(n) n.*(n>=0).*(n<=3) + (-n+6).*(n>3).*(n<=6);
+%%
+% Notoce que se incluyo una matriz "M" cuya informacion el el termino que
+% multiplica a $n$ y el termino que se suma.
+%
+% Ahora procedemos a graficar cada una de las funciones enumeradas
+% anteriormente.
+%
+for i = 1:6
+    figure
+    stem(n,x(n*M(i,1) + M(i,2)))
+    title(i)
+end
+%% Referencias
+% # Martínez   R.,Senales   y   Sistemas:   Una   perspectiva. Recuperado   19   marzo,   2019,   de <http://rafneta.github.io http://rafneta.github.io>
+% # Lathi, B. P.. (2005). Linear Systems and Signals. New York: Oxford University Press, Inc.
+% # Martínez, R. [Mate y así]. (2018 Agosto 17). Escalamiento horizontal de señales en tiempo discreto (6)
+% [Video]. Recuperado de <https://www.youtube.com/watch?v=lpFU5D7oY1w https://www.youtube.com/watch?v=lpFU5D7oY1w>
+
+##### SOURCE END #####
+--></body></html>
