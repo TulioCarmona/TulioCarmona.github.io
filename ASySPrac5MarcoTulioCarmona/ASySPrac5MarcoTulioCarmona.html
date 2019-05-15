@@ -1,0 +1,516 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Pr&aacute;ctica 05: Series de Fourier en tiempo continuo</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-05-14"><meta name="DC.source" content="P5.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Pr&aacute;ctica 05: Series de Fourier en tiempo continuo</h1><!--introduction--><p><b>Intituto Polit&eacute;cnico Nacional</b></p><p><b>Unidad Profesional Interdisciplinaria en Ingenier&iacute;a y Tecnolog&iacute;as Avanzadas</b></p><p><b>An&aacute;lisis de Se&ntilde;ales y Sistemas</b></p><p><b>Grupo: 2MV1</b></p><p><b>Alumnos:</b></p><div><ul><li>Carmona Bellido Marco Tulio</li></ul></div><div><ul><li>Ordorica Mu&ntilde;oz Leonardo Antonio</li></ul></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Introducci&oacute;n</a></li><li><a href="#6">Objetivos</a></li><li><a href="#7"><b>Ejemplo 6.1</b></a></li><li><a href="#11"><b>Ejemplo 6.2</b></a></li><li><a href="#15"><b>Ejemplo 6.4</b></a></li><li><a href="#18"><b>Ejemplo 6.5</b></a></li><li><a href="#20"><b>Ejemplo 6.7</b></a></li><li><a href="#21">Problema 7</a></li><li><a href="#31">Referencias</a></li></ul></div><h2 id="1">Introducci&oacute;n</h2><p>En este momento vamos a hablar acerca de los coeficientes de una serie de Fourier discreta exponencial compleja, conocidos como los <img src="P5_eq09969345159538061326.png" alt="$D_{n}$">. Para poder trabajar las series de Fourier con software necesitamos hacer uso de las aproximaciones num&eacute;ricas trabajadas en la pr&aacute;ctica anterior para calcular num&eacute;ricamente los coeficientes <img src="P5_eq09969345159538061326.png" alt="$D_{n}$"> de la serie de Fourier exponencial compleja.</p><p>En este caso haremos uso de la Cuadratura Gaussiana para aproximar la integral del calculo de los coeficientes:</p><p>Para exponer el uso de la Cuadratura Gaussiana para calcular los coeficientes de la serie vamos a realizar un ejemplo del calculo de los coeficientes del problema 4 del PR10:</p><p>En este caso <img src="P5_eq16266160074245195707.png" alt="$T_{0}=2$"> y <img src="P5_eq07484123022571582479.png" alt="$\Omega_{0}=\frac{2\pi}{T_{0}}=pi$"></p><p>Procedemos a calcular los coeficientes <img src="P5_eq09969345159538061326.png" alt="$D_{n}$"></p><p>La f&oacute;rmula de la se&ntilde;al es <img src="P5_eq03396327301951845061.png" alt="$x(t)=2$"> de -1/2 a 1/2 y al introducirla en la f&oacute;rmula para calcular los coeficientes nos queda como:</p><p><img src="P5_eq12300099266131056680.png" alt="$2e^{-jnt\pi}$">, la cual ser&aacute; la funci&oacute;n a integrar desde -1/2 hasta 1/2</p><p><img src="P5_eq07931950447235480722.png" alt="$\frac{1}{2}\int_{-\frac{1}{2}}^{\frac{1}{2}}2e^{-jnt\pi}dt$"></p><p>Asi, procedemos con la integral realizandola con la Cuadratura Gaussiana pero como los limites de integraci&oacute;n no son desde -1 hasta 1, tenemos que hacer uso de la f&oacute;rmula para el adecuamiento de los l&iacute;mites.</p><p>Por lo que al aplicar la f&oacute;rmula, tenemos que:</p><p><img src="P5_eq14356977345052362472.png" alt="$\frac{1}{2}\int_{-1}^{1}e^{-jnt\pi/2}dt$"></p><p>Ser&iacute;a la nueva f&oacute;rmula a integrar, pudiendo realizarla de -1 a 1</p><p>Asi tenemos que <img src="P5_eq05726609261373932811.png" alt="$\frac{1}{2}\int_{-1/2}^{1/2}2e^{-jnt\pi}dt$"></p><p>Puede ser aproximada por:</p><p><img src="P5_eq14356977345052362472.png" alt="$\frac{1}{2}\int_{-1}^{1}e^{-jnt\pi/2}dt$"></p><p>En este caso haremos uso del polinomio de Legendre de grado 2:</p><p>Realizando las respectivas sustituciones:</p><p><img src="P5_eq09426860160187906377.png" alt="$0.5(e^{-0.9069*jn}+e^{0.9069*jn})$"></p><p>Ahora procedemos a graficar el espectro de Fourier para estos coeficientes:</p><p>Espectro de magnitud</p><pre class="codeinput">n=-10:10;
+D_n=0.5*(exp(-0.9069*1i*n)+exp(0.9069*1i*n));
+stem(n,abs(D_n));
+axis([-11 11 -0.5 2]);
+title(<span class="string">'Espectro de magnitud'</span>);
+xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'|D_n|'</span>);
+grid <span class="string">on</span>;
+ax = gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+</pre><img vspace="5" hspace="5" src="P5_01.png" alt=""> <p>Espectro de fase</p><pre class="codeinput">stem(n,angle(D_n));
+axis([-11 11 -1 4]);
+title(<span class="string">'Espectro de fase'</span>);
+xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'\angleD_n'</span>);
+grid <span class="string">on</span>;
+ax = gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+</pre><img vspace="5" hspace="5" src="P5_02.png" alt=""> <p>Con esto podemos observar que la aproximaci&oacute;n con los polinomios de Legendre (Cuadratura Gaussiana) es muy buena ya que los espectros son correctos.</p><h2 id="6">Objetivos</h2><div><ul><li>Realizar gr&aacute;ficas de series de Fourier exponenciales y trigonom&eacute;tricas en tiempo continuo</li><li>Manipulaci&oacute;n de instrucciones en MATLAB</li><li>Calculo n&uacute;merico de los coeficientes de Fourier</li></ul></div><h2 id="7"><b>Ejemplo 6.1</b></h2><p>La se&ntilde;al a la que se desea calcular la serie de Fourier trigonometrica es la siguiente.</p><p><img vspace="5" hspace="5" src="imagen1.png" alt=""> </p><p>Para la generacion de la serie de fourier trigonometrica compacta de esta se&ntilde;al se realizan algunos cambios a la funcion sfc() a la cual ahora se llama sft(). A comtinuacion se ejecuta el codigo necesario para poder generar la serie de Fourier de esta se&ntilde;al con 4 armomnicos.</p><pre class="codeinput">cn = @(n)0.504*(2./(1+16*n.^2).^(1/2));
+c0 = 0.504;
+fi = @(n) atan(-4*n);
+f = @(t) exp(-t/2);
+armo = 4;
+sft(0,pi,c0, cn, fi, f, armo, 0, 5*pi)
+</pre><img vspace="5" hspace="5" src="P5_03.png" alt=""> <p>Ahora ejecutaremos la misma funcion pero con 15 armonicos para observar el cambio de la serie de fourier.</p><pre class="codeinput">armo = 15;
+sft(0,pi,c0, cn, fi, f, armo, 0, 5*pi)
+</pre><img vspace="5" hspace="5" src="P5_04.png" alt=""> <p>Como nos podemos dar cuenta el error de la serie de Fourier con respecto a la se&ntilde;al original disminuye entre mas armonicos se usan y por consiguiente la serie de Fourier se asemeja aun mas a la se&ntilde;al.</p><h2 id="11"><b>Ejemplo 6.2</b></h2><p>Para este segundo ejemplo se desea realizar los mismos calculos que para el ejemplo 6.1, a la siguiente se&ntilde;al.</p><p><img vspace="5" hspace="5" src="imagen2.png" alt=""> </p><p>La funcion esta desinida de la siguiente manera</p><p><img vspace="5" hspace="5" src="imagen3.png" alt=""> </p><p>En matlab la definimos como:   f = @(t) 2*A*t.*(t&gt;= -0.5 &amp; t&lt;= 0.5) + 2*A*(1-t).*(t&gt;= 0.5 &amp; t&lt;= 1.5); Con todos los parametros de la serie de Fourier ya calculados se introducen en el codigo y ahora se ejecuta la funcion sfc().</p><pre class="codeinput">A = 3;
+f = @(t) 2*A*t.*(t&gt;= -0.5 &amp; t&lt;= 0.5) + 2*A*(1-t).*(t&gt;= 0.5 &amp; t&lt;= 1.5);
+d0 = 0;
+dn = @(n) -8*A*i*sin(n.*pi/2)./(2.*(n^2).*pi^2)
+armo = 4;
+sfc(-0.5,1.5,dn,d0,f,armo,-1,10)
+</pre><pre class="codeoutput">
+dn =
+
+  function_handle with value:
+
+    @(n)-8*A*i*sin(n.*pi/2)./(2.*(n^2).*pi^2)
+
+</pre><img vspace="5" hspace="5" src="P5_05.png" alt=""> <p>Nuevamente se ejecuta la funcion anterior pero con 15 armonicos.</p><pre class="codeinput">armo = 15;
+sfc(-0.5,1.5,dn,d0,f,armo,-1,10)
+</pre><img vspace="5" hspace="5" src="P5_06.png" alt=""> <h2 id="15"><b>Ejemplo 6.4</b></h2><p>La se&ntilde;al a la que se le realizara la serie de Fourier es la siguiente.</p><p><img vspace="5" hspace="5" src="imagen4.png" alt=""> </p><p>Ahora definimos en el codigo los parametros necesarios para poder graficar esta se&ntilde;al mediante su serie de Fourier.</p><pre class="codeinput">f = @(t) (t&gt;= -pi/2 &amp; t&lt;= pi/2);
+d0 = 1/2;
+dn = @(n) 2*sin(n*pi./2)./(2.*n.*pi);
+armo = 4;
+sfc(-pi,pi,dn,d0,f,armo,-pi,10*pi)
+</pre><img vspace="5" hspace="5" src="P5_07.png" alt=""> <p>Nuevamente repetimos para 15 armonicos, y asi podremos observar como la serie de Fourier se aproxima mucho mas a la se&ntilde;al original.</p><pre class="codeinput">armo = 15;
+sfc(-pi,pi,dn,d0,f,armo,-pi,10*pi)
+</pre><img vspace="5" hspace="5" src="P5_08.png" alt=""> <h2 id="18"><b>Ejemplo 6.5</b></h2><p>Para este ejemplo retomamos la se&ntilde;al descrita en el <b>Ejemplo 6.1</b>, solo que en ta ocacion se graficara su serie de Fourier exponencial compleja en vez de la serie de Fourier trigonometrica compacta.</p><p>A partir de su serie de Fourier trigonometrica compacta se determinan los coeficientes para la serie de exponencial compleja y se tiene cmomo resultado lo siguiente que sera ingresado en el codigo para poder ser graficado.</p><pre class="codeinput">d0 = 0.504;
+dn=@(n) 0.504/(1+4*n*j);
+f=@(t) exp(-t/2);
+armo = 4;
+sfc(0,pi,dn,d0,f,armo,-7,9)
+</pre><img vspace="5" hspace="5" src="P5_09.png" alt=""> <p>Ahora repetimos el codigo aumentando el numero de armonicos a 15.</p><pre class="codeinput">armo = 15;
+sfc(0,pi,dn,d0,f,armo,-7,9)
+</pre><img vspace="5" hspace="5" src="P5_10.png" alt=""> <h2 id="20"><b>Ejemplo 6.7</b></h2><p>La se&ntilde;al de este ejemplo es un tren de impulsos con <img src="P5_eq04356084194358646376.png" alt="$T_0=3$"></p><pre class="codeinput">T0 = 3;
+d0 = 1/T0;
+dn = @(t) 1/T0;
+armo = 4;
+f = @(t) dirac(t);
+sfc2(0,pi,dn,d0,f,armo,-7,9)
+</pre><img vspace="5" hspace="5" src="P5_11.png" alt=""> <h2 id="21">Problema 7</h2><p>C&oacute;digo que implementa la regla del trapecio compuesto para n=15 aplicado al ejemplo de la pr&aacute;ctica, en el cual la funci&oacute;n a la que se le va a calcular la serie de Fourier es <img src="P5_eq13118065478009486998.png" alt="$e^{-t/2}$">, y al introducirla en la f&oacute;rmula para calcular los coeficientes obtenemos <img src="P5_eq11739039855415626494.png" alt="$e^{-(1/2+2jn)t}$">.</p><pre class="codeinput">clear;
+h=pi/15;
+<span class="keyword">for</span> k=1:1:15
+    t(k)=k*h;
+<span class="keyword">end</span>
+D_0=(1/pi)*(h/2)*(1+2*sum(exp(-1/2*t))+exp(-1/2*pi))
+D_1=(1/pi)*(h/2)*(1+2*sum(exp(-(1/2+2*1i*1)*t))+exp(-(1/2+2*1i*1)*pi))
+D_2=(1/pi)*(h/2)*(1+2*sum(exp(-(1/2+2*1i*2)*t))+exp(-(1/2+2*1i*2)*pi))
+D_3=(1/pi)*(h/2)*(1+2*sum(exp(-(1/2+2*1i*3)*t))+exp(-(1/2+2*1i*3)*pi))
+D_4=(1/pi)*(h/2)*(1+2*sum(exp(-(1/2+2*1i*4)*t))+exp(-(1/2+2*1i*4)*pi))
+D_n=[D_0 D_1 D_2 D_3 D_4];
+n=[0:4];
+</pre><pre class="codeoutput">
+D_0 =
+
+    0.5186
+
+
+D_1 =
+
+   0.0440 - 0.1168i
+
+
+D_2 =
+
+   0.0221 - 0.0583i
+
+
+D_3 =
+
+   0.0178 - 0.0361i
+
+
+D_4 =
+
+   0.0164 - 0.0237i
+
+</pre><p>Espectro de magnitud</p><pre class="codeinput">stem(n,abs(D_n));
+axis([-1 5 -0.5 1]);
+title(<span class="string">'Espectro de fase'</span>);
+xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'|D_n|'</span>);
+grid <span class="string">on</span>;
+ax = gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+</pre><img vspace="5" hspace="5" src="P5_12.png" alt=""> <p>Espectro de fase</p><pre class="codeinput">stem(n,angle(D_n));
+axis([-1 5 -2 1]);
+title(<span class="string">'Espectro de fase'</span>);
+xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'\angleD_n'</span>);
+grid <span class="string">on</span>;
+ax = gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+<span class="comment">%</span>
+</pre><img vspace="5" hspace="5" src="P5_13.png" alt=""> <p>Aqui tenemos las aproximaciones usando la regla del trapecio compuesto y a continuaci&oacute;n vamos a utilizar la aproximaci&oacute;n usada en el COMPUTER EXAMPLE C6.4 del Lathi para comparar cual de las dos aproximaciones es mejor o m&aacute;s precisa.</p><pre class="codeinput">T_0 = pi; N_0 = 256; T = T_0/N_0; t = (0:T:T*(N_0-1))'; M = 10;
+x = exp(-t/2); x(1)=(exp(-pi/2)+1)/2;
+D_n=fft(x)/N_0;
+n = [-N_0/2:N_0/2-1]';
+clf; subplot (2, 2, 1); stem(n, abs(fftshift (D_n)),<span class="string">'k'</span>);
+axis ([-M M -.1 .6]); xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'|D_n|'</span>);
+subplot (2, 2, 2); stem(n, angle(fftshift(D_n)),<span class="string">'k'</span>);
+axis([-M M -pi pi]); xlabel (<span class="string">'n'</span>); ylabel(<span class="string">'\angle D_n [rad]'</span>);
+D_n(1)
+D_n(2)
+D_n(3)
+D_n(4)
+D_n(5)
+</pre><pre class="codeoutput">
+ans =
+
+    0.5043
+
+
+ans =
+
+   0.0297 - 0.1186i
+
+
+ans =
+
+   0.0078 - 0.0621i
+
+
+ans =
+
+   0.0035 - 0.0417i
+
+
+ans =
+
+   0.0020 - 0.0314i
+
+</pre><img vspace="5" hspace="5" src="P5_14.png" alt=""> <p>A continuaci&oacute;n haremos una comparaci&oacute;n entre los dos algoritmos listando en una tabla cada uno;</p><p>Del lado izquierdo se encuentran los coeficientes calculados con el algoritmo del Lathi y del lado derecho los calculados con la regla del trapecio compuesto.</p><pre class="codeinput">Tabla=[D_n(1),D_0;D_n(2),D_1;D_n(3),D_2;D_n(4),D_3;D_n(5),D_4;]
+</pre><pre class="codeoutput">
+Tabla =
+
+   0.5043 + 0.0000i   0.5186 + 0.0000i
+   0.0297 - 0.1186i   0.0440 - 0.1168i
+   0.0078 - 0.0621i   0.0221 - 0.0583i
+   0.0035 - 0.0417i   0.0178 - 0.0361i
+   0.0020 - 0.0314i   0.0164 - 0.0237i
+
+</pre><p>Como podemos observar de aqui y con las graficas, las aproximaciones son mejores con el algoritmo presentado en el Lathi.</p><h2 id="31">Referencias</h2><div><ol><li>Mart&iacute;nez, R. [Mate y as&iacute;]. (2018 Agosto). M&eacute;todos Num&eacute;ricos: Integraci&oacute;n [Lista de reproducci&oacute;n]. Recuperada de <a href="https://www.youtube.com/playlist?list=PLSC7gO5dTNPewJkJ5Zh3Y7xHfy_fnDKqD">https://www.youtube.com/playlist?list=PLSC7gO5dTNPewJkJ5Zh3Y7xHfy_fnDKqD</a></li><li>Lathi, B. P.. (2005). Linear Systems and Signals. New York: Oxford University Press, Inc.</li></ol></div><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Práctica 05: Series de Fourier en tiempo continuo
+%
+% *Intituto Politécnico Nacional*
+%
+% *Unidad Profesional Interdisciplinaria en Ingeniería y Tecnologías Avanzadas*
+%
+% *Análisis de Señales y Sistemas*
+%
+% *Grupo: 2MV1*
+%
+% *Alumnos:*
+% 
+% * Carmona Bellido Marco Tulio
+%
+% * Ordorica Muñoz Leonardo Antonio
+%
+%% Introducción
+% En este momento vamos a hablar acerca de los coeficientes de una serie de
+% Fourier discreta exponencial compleja, conocidos como los $D_{n}$.
+% Para poder trabajar las series de Fourier con software necesitamos hacer
+% uso de las aproximaciones numéricas trabajadas en la práctica anterior
+% para calcular numéricamente los coeficientes $D_{n}$ de la serie de
+% Fourier exponencial compleja.
+% 
+% En este caso haremos uso de la Cuadratura Gaussiana para aproximar la
+% integral del calculo de los coeficientes:
+%
+% Para exponer el uso de la Cuadratura Gaussiana para calcular los
+% coeficientes de la serie vamos a realizar un ejemplo del calculo de los
+% coeficientes del problema 4 del PR10:
+%
+% En este caso $T_{0}=2$ y $\Omega_{0}=\frac{2\pi}{T_{0}}=pi$
+%
+% Procedemos a calcular los coeficientes $D_{n}$
+%
+% La fórmula de la señal es $x(t)=2$ de -1/2 a 1/2 y al introducirla en la
+% fórmula para calcular los coeficientes nos queda como:
+%
+% $2e^{-jnt\pi}$, la cual será la función a integrar desde -1/2 hasta 1/2
+%
+% $\frac{1}{2}\int_{-\frac{1}{2}}^{\frac{1}{2}}2e^{-jnt\pi}dt$
+%
+% Asi, procedemos con la integral realizandola con la Cuadratura Gaussiana
+% pero como los limites de integración no son desde -1 hasta 1, tenemos que
+% hacer uso de la fórmula para el adecuamiento de los límites.
+%
+% Por lo que al aplicar la fórmula, tenemos que:
+%
+% $\frac{1}{2}\int_{-1}^{1}e^{-jnt\pi/2}dt$
+%
+% Sería la nueva fórmula a integrar, pudiendo realizarla de -1 a 1
+%
+% Asi tenemos que $\frac{1}{2}\int_{-1/2}^{1/2}2e^{-jnt\pi}dt$
+%
+% Puede ser aproximada por:
+% 
+% $\frac{1}{2}\int_{-1}^{1}e^{-jnt\pi/2}dt$
+% 
+% En este caso haremos uso del polinomio de Legendre de grado 2:
+% 
+% Realizando las respectivas sustituciones:
+%
+% $0.5(e^{-0.9069*jn}+e^{0.9069*jn})$
+%
+% Ahora procedemos a graficar el espectro de Fourier para estos
+% coeficientes:
+%
+% Espectro de magnitud
+%%
+n=-10:10;
+D_n=0.5*(exp(-0.9069*1i*n)+exp(0.9069*1i*n));
+stem(n,abs(D_n));
+axis([-11 11 -0.5 2]);
+title('Espectro de magnitud');
+xlabel('n'); ylabel('|D_n|');
+grid on;
+ax = gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+%%
+% Espectro de fase
+%%
+stem(n,angle(D_n));
+axis([-11 11 -1 4]);
+title('Espectro de fase');
+xlabel('n'); ylabel('\angleD_n');
+grid on;
+ax = gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+%%
+% Con esto podemos observar que la aproximación con los polinomios de
+% Legendre (Cuadratura Gaussiana) es muy buena ya que los espectros son
+% correctos.
+%% Objetivos
+% * Realizar gráficas de series de Fourier exponenciales y trigonométricas en tiempo continuo
+% * Manipulación de instrucciones en MATLAB
+% * Calculo númerico de los coeficientes de Fourier
+%
+%% *Ejemplo 6.1*
+% La señal a la que se desea calcular la serie de Fourier trigonometrica es
+% la siguiente.
+%%
+% 
+% <<imagen1.png>>
+% 
+% Para la generacion de la serie de fourier trigonometrica compacta de esta
+% señal se realizan algunos cambios a la funcion sfc() a la cual ahora se
+% llama sft(). A comtinuacion se ejecuta el codigo necesario para poder
+% generar la serie de Fourier de esta señal con 4 armomnicos.
+cn = @(n)0.504*(2./(1+16*n.^2).^(1/2));
+c0 = 0.504;
+fi = @(n) atan(-4*n);
+f = @(t) exp(-t/2);
+armo = 4;
+sft(0,pi,c0, cn, fi, f, armo, 0, 5*pi)
+%%
+% Ahora ejecutaremos la misma funcion pero con 15 armonicos para observar
+% el cambio de la serie de fourier.
+armo = 15;
+sft(0,pi,c0, cn, fi, f, armo, 0, 5*pi)
+%%
+% Como nos podemos dar cuenta el error de la serie de Fourier con respecto
+% a la señal original disminuye entre mas armonicos se usan y por
+% consiguiente la serie de Fourier se asemeja aun mas a la señal.
+%% *Ejemplo 6.2*
+%
+% Para este segundo ejemplo se desea realizar los mismos calculos que para
+% el ejemplo 6.1, a la siguiente señal.
+%%
+% 
+% <<imagen2.png>>
+% 
+% La funcion esta desinida de la siguiente manera
+%%
+% 
+% <<imagen3.png>>
+% 
+% En matlab la definimos como:
+%   f = @(t) 2*A*t.*(t>= -0.5 & t<= 0.5) + 2*A*(1-t).*(t>= 0.5 & t<= 1.5);
+% Con todos los parametros de la serie de Fourier ya calculados se
+% introducen en el codigo y ahora se ejecuta la funcion sfc().
+A = 3;
+f = @(t) 2*A*t.*(t>= -0.5 & t<= 0.5) + 2*A*(1-t).*(t>= 0.5 & t<= 1.5);
+d0 = 0;
+dn = @(n) -8*A*i*sin(n.*pi/2)./(2.*(n^2).*pi^2)
+armo = 4;
+sfc(-0.5,1.5,dn,d0,f,armo,-1,10)
+%%
+% Nuevamente se ejecuta la funcion anterior pero con 15 armonicos.
+armo = 15;
+sfc(-0.5,1.5,dn,d0,f,armo,-1,10)
+%% *Ejemplo 6.4*
+%
+% La señal a la que se le realizara la serie de Fourier es la siguiente.
+%%
+% 
+% <<imagen4.png>>
+% 
+% Ahora definimos en el codigo los parametros necesarios para poder
+% graficar esta señal mediante su serie de Fourier.
+f = @(t) (t>= -pi/2 & t<= pi/2);
+d0 = 1/2;
+dn = @(n) 2*sin(n*pi./2)./(2.*n.*pi);
+armo = 4;
+sfc(-pi,pi,dn,d0,f,armo,-pi,10*pi)
+%%
+% Nuevamente repetimos para 15 armonicos, y asi podremos observar como la
+% serie de Fourier se aproxima mucho mas a la señal original.
+armo = 15;
+sfc(-pi,pi,dn,d0,f,armo,-pi,10*pi)
+%% *Ejemplo 6.5*
+%
+% Para este ejemplo retomamos la señal descrita en el *Ejemplo 6.1*, solo
+% que en ta ocacion se graficara su serie de Fourier exponencial compleja
+% en vez de la serie de Fourier trigonometrica compacta.
+% 
+% A partir de su serie de Fourier trigonometrica compacta se determinan los
+% coeficientes para la serie de exponencial compleja y se tiene cmomo
+% resultado lo siguiente que sera ingresado en el codigo para poder ser
+% graficado.
+d0 = 0.504;
+dn=@(n) 0.504/(1+4*n*j);
+f=@(t) exp(-t/2);
+armo = 4;
+sfc(0,pi,dn,d0,f,armo,-7,9)
+%%
+% Ahora repetimos el codigo aumentando el numero de armonicos a 15.
+armo = 15;
+sfc(0,pi,dn,d0,f,armo,-7,9)
+
+%% *Ejemplo 6.7*
+%
+% La señal de este ejemplo es un tren de impulsos con $T_0=3$
+T0 = 3;
+d0 = 1/T0;
+dn = @(t) 1/T0;
+armo = 4;
+f = @(t) dirac(t);
+sfc2(0,pi,dn,d0,f,armo,-7,9)
+
+%% Problema 7
+% Código que implementa la regla del trapecio compuesto para n=15 aplicado
+% al ejemplo de la práctica, en el cual la función a la que se le va a
+% calcular la serie de Fourier es $e^{-t/2}$, y al introducirla en la
+% fórmula para calcular los coeficientes obtenemos $e^{-(1/2+2jn)t}$.
+%%
+clear;
+h=pi/15;
+for k=1:1:15
+    t(k)=k*h;
+end
+D_0=(1/pi)*(h/2)*(1+2*sum(exp(-1/2*t))+exp(-1/2*pi))
+D_1=(1/pi)*(h/2)*(1+2*sum(exp(-(1/2+2*1i*1)*t))+exp(-(1/2+2*1i*1)*pi))
+D_2=(1/pi)*(h/2)*(1+2*sum(exp(-(1/2+2*1i*2)*t))+exp(-(1/2+2*1i*2)*pi))
+D_3=(1/pi)*(h/2)*(1+2*sum(exp(-(1/2+2*1i*3)*t))+exp(-(1/2+2*1i*3)*pi))
+D_4=(1/pi)*(h/2)*(1+2*sum(exp(-(1/2+2*1i*4)*t))+exp(-(1/2+2*1i*4)*pi))
+D_n=[D_0 D_1 D_2 D_3 D_4];
+n=[0:4];
+%%
+% Espectro de magnitud
+%%
+stem(n,abs(D_n));
+axis([-1 5 -0.5 1]);
+title('Espectro de fase');
+xlabel('n'); ylabel('|D_n|');
+grid on;
+ax = gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+%%
+% Espectro de fase
+stem(n,angle(D_n));
+axis([-1 5 -2 1]);
+title('Espectro de fase');
+xlabel('n'); ylabel('\angleD_n');
+grid on;
+ax = gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+%
+%%
+% Aqui tenemos las aproximaciones usando la regla del trapecio compuesto y
+% a continuación vamos a utilizar la aproximación usada en el COMPUTER
+% EXAMPLE C6.4 del Lathi para comparar cual de las dos aproximaciones es
+% mejor o más precisa.
+%
+%%
+T_0 = pi; N_0 = 256; T = T_0/N_0; t = (0:T:T*(N_0-1))'; M = 10;
+x = exp(-t/2); x(1)=(exp(-pi/2)+1)/2;
+D_n=fft(x)/N_0;
+n = [-N_0/2:N_0/2-1]';
+clf; subplot (2, 2, 1); stem(n, abs(fftshift (D_n)),'k');
+axis ([-M M -.1 .6]); xlabel('n'); ylabel('|D_n|');
+subplot (2, 2, 2); stem(n, angle(fftshift(D_n)),'k');
+axis([-M M -pi pi]); xlabel ('n'); ylabel('\angle D_n [rad]');
+D_n(1)
+D_n(2)
+D_n(3)
+D_n(4)
+D_n(5)
+%%
+% A continuación haremos una comparación entre los dos algoritmos listando
+% en una tabla cada uno;
+%%
+% Del lado izquierdo se encuentran los coeficientes calculados con el
+% algoritmo del Lathi y del lado derecho los calculados con la regla del
+% trapecio compuesto.
+Tabla=[D_n(1),D_0;D_n(2),D_1;D_n(3),D_2;D_n(4),D_3;D_n(5),D_4;]
+%%
+% Como podemos observar de aqui y con las graficas, las aproximaciones son
+% mejores con el algoritmo presentado en el Lathi.
+%
+%% Referencias
+% # Martínez, R. [Mate y así]. (2018 Agosto). Métodos Numéricos:
+% Integración
+% [Lista de reproducción]. Recuperada de <https://www.youtube.com/playlist?list=PLSC7gO5dTNPewJkJ5Zh3Y7xHfy_fnDKqD https://www.youtube.com/playlist?list=PLSC7gO5dTNPewJkJ5Zh3Y7xHfy_fnDKqD>
+% # Lathi, B. P.. (2005). Linear Systems and Signals. New York: Oxford University Press, Inc.
+
+
+
+##### SOURCE END #####
+--></body></html>
