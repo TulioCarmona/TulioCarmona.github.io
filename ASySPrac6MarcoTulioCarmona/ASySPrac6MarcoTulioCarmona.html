@@ -1,0 +1,1064 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Pr&aacute;ctica 06: Sistemas diferenciales y en diferencias</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-05-28"><meta name="DC.source" content="P6.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Pr&aacute;ctica 06: Sistemas diferenciales y en diferencias</h1><!--introduction--><p><b>Intituto Polit&eacute;cnico Nacional</b></p><p><b>Unidad Profesional Interdisciplinaria en Ingenier&iacute;a y Tecnolog&iacute;as Avanzadas</b></p><p><b>An&aacute;lisis de Se&ntilde;ales y Sistemas</b></p><p><b>Grupo: 2MV1</b></p><p><b>Alumnos:</b></p><div><ul><li>Carmona Bellido Marco Tulio</li></ul></div><div><ul><li>Ordorica Mu&ntilde;oz Leonardo Antonio</li></ul></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Sistemas diferenciales</a></li><li><a href="#4">Sistemas diferenciales 1</a></li><li><a href="#6">Sistemas diferenciales 2</a></li><li><a href="#8">Sistemas diferenciales 3</a></li><li><a href="#10">Sistemas diferenciales 4</a></li><li><a href="#12">Sistemas diferenciales 5</a></li><li><a href="#14">Sistemas diferenciales 6</a></li><li><a href="#16">Sistemas diferenciales 7</a></li><li><a href="#18">Sistemas en diferencias</a></li><li><a href="#23">Sistemas en diferencias 1</a></li><li><a href="#26">Sistemas en diferencias 2</a></li><li><a href="#27">Sistemas en diferencias 3</a></li><li><a href="#28">Sistemas en diferencias 4</a></li><li><a href="#29">Sistemas en diferencias 5</a></li><li><a href="#30">Sistemas en diferecias 6</a></li><li><a href="#31">Sistemas en diferencias 7</a></li><li><a href="#33">Referencias</a></li></ul></div><h2 id="1">Sistemas diferenciales</h2><p>Realizar los siguientes problemas para el siguiente ejemplo.</p><p><img src="P6_eq13756819649804162639.png" alt="$\frac{dy(t)}{dt}+2\frac{dy(t)}{dt}+2y(t)=\frac{dx(t)}{dt}+2x(t)$"></p><p>Con <img src="P6_eq05733120675232018958.png" alt="$x(t)=e^{-t}u(t)$"> y con condiciones iniciales y'(0)=1 y y(0)=1.</p><p>Para fines practicos se va a cambiar la definici&oacute;n del escalon en matlab.</p><pre class="codeinput">sympref(<span class="string">'HeavisideAtOrigin'</span>, 1);
+</pre><p>Para la elaboracion de esta primera parte de la practica se har&aacute; uso del siguiente codigo al que dependiendo el problema a resolver se debe hacer alguna correccion.</p><pre class="language-matlab">
+<span class="keyword">function</span> laplace2016a(a,b,ciy,cix,xi,t0)
+<span class="comment">% a coeficientes de las derivadas de la salida menor a mayor [a_0, ..., a_n]</span>
+<span class="comment">% b coeficientes de las derivadas de la entrada menor a mayor [b_0, ..., b_m]</span>
+<span class="comment">% ciy condiciones iniciales de la salida de  menor a mayor [y(0), y(0)^(n-1)]</span>
+<span class="comment">% cix condiciones iniciales de la entrada de menor a meyor [x(0), x^(m-1)(0)]</span>
+<span class="comment">% xi funci&oacute;n de entrada en terminos de la variable simbolica t previamente</span>
+<span class="comment">% declarada en el command window</span>
+<span class="comment">% t0 tiempo final para graficar la solucion, la derivada, y la segunda </span>
+<span class="comment">% derivada </span>
+<span class="comment">% ejemplo: resolver y^(3)+y^(2)+2y^(1)+2y=3x^(2)-x^(1)+2x con y^(2)(0)=1 y^(1)=3</span>
+<span class="comment">% y(0)=2, x(0)=0 x^(1)=1, x(t)=exp(-t)cos(t)u(t), para 10 segundos, se resuleve como</span>
+<span class="comment">% syms t</span>
+<span class="comment">% laplace2016a([2 2 1 1],[2 -1 3],[2 3 1],[0 1],exp(-t)*cos(t)*heaviside(t),10)</span>
+close <span class="string">all</span>
+tam=size(a);
+tami=size(b);
+syms <span class="string">y(t)</span> <span class="string">Y(s)</span> <span class="string">x(t)</span> <span class="string">X(s)</span> <span class="string">Yy</span> <span class="string">fp</span>;
+syms <span class="string">edd</span> <span class="string">edi</span> 
+edd=0;
+edi=0;
+
+<span class="keyword">for</span> i=1:tam(2)
+   edd=edd+a(i)*s^(i-1)*Y(s);
+   <span class="keyword">for</span> k=1:i-1
+       edd=edd-a(i)*(s^(i-1-k)*ciy(k));
+   <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">for</span> i=1:tami(2)
+   edi=edi+b(i)*s^(i-1)*X(s);
+   <span class="keyword">for</span> k=1:i-1
+       edi=edi-b(i)*(s^(i-1-k)*cix(k));
+   <span class="keyword">end</span>
+<span class="keyword">end</span>
+mensaje(<span class="string">'APLICAMOS TRANSFORMADA DE LAPLACE y subtituimos condiciones iniciales'</span>)
+
+pretty(edd)
+disp(<span class="string">'='</span>)
+pretty(edi)
+
+mensaje(<span class="string">'SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA'</span>)
+
+edi=subs(edi,X(s), laplace(xi));
+pretty(edd)
+disp(<span class="string">'='</span>)
+pretty(edi)
+
+mensaje(<span class="string">'DESPEJAMOS Y(s)'</span>)
+
+edd=collect(edd,Y(s));
+edd=subs(edd,Y(s),Yy);
+eq1=edd==edi;
+disp(<span class="string">'Y(s)='</span>)
+edd=solve(eq1, Yy);
+pretty(edd)
+
+<span class="comment">%%% Para versiones superiores a 2016</span>
+mensaje(<span class="string">'DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(s)'</span>)
+disp(<span class="string">'Y(s)='</span>)
+pretty(partfrac(edd))
+<span class="comment">%%%% Si se ejecuta en 2015 o menor comentar las 3 lineas anteriores</span>
+
+mensaje(<span class="string">'Aplicamos transformada inversa, asi la soluci&oacute;n es'</span>)
+disp(<span class="string">'y(t)='</span>)
+y(t)=ilaplace(edd);
+pretty(y(t))
+
+dy(t)=diff(y,t);
+ddy(t)=diff(dy,t);
+figure (1)
+hFig = figure(1);
+set(hFig, <span class="string">'Position'</span>, [0 0 900 900])
+axes1 = axes(<span class="string">'Parent'</span>,hFig,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16);
+tiempo=0:0.01:t0;
+subplot(2,1,1)
+xi = matlabFunction(xi);
+plot(tiempo,xi(tiempo),<span class="string">'b'</span>,<span class="string">'LineWidth'</span>,2)
+
+hold <span class="string">on</span>
+y = matlabFunction(y);
+plot(tiempo,y(tiempo),<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+
+legend(<span class="string">'Entrada x(t)'</span>,<span class="string">'Salida y(t)'</span>,<span class="string">'Location'</span>,<span class="string">'Best'</span>)
+xlabel(<span class="string">'tiempo'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+title(<span class="string">'Entrada y Respuesta del sistema'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+grid <span class="string">on</span>
+subplot(2,1,2)
+dy = matlabFunction(dy);
+plot(tiempo,dy(tiempo),<span class="string">'g'</span>,<span class="string">'LineWidth'</span>,2)
+
+hold <span class="string">on</span>
+title(<span class="string">'Primera y segunda derivada de la salida'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+ddy = matlabFunction(ddy);
+plot(tiempo,ddy(tiempo),<span class="string">'m'</span>,<span class="string">'LineWidth'</span>,2)
+
+legend(<span class="string">'dy(t)/dt'</span>,<span class="string">'d^2y(t)/d^2t'</span>,<span class="string">'Location'</span>,<span class="string">'Best'</span>)
+xlabel(<span class="string">'tiempo'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+grid <span class="string">on</span>
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> mensaje(texto)
+disp( <span class="string">' '</span>)
+disp(texto)
+disp( <span class="string">' '</span>)
+<span class="keyword">end</span>
+
+</pre><h2 id="4">Sistemas diferenciales 1</h2><p>Muestra la funci&oacute;n de transferencia del sistema.</p><p>Para la funci&oacute;n de transferencia del sistema necesitamos que la entrada del sistema sea un impulso y no hay condiciones iniciales, entonces el codigo solo se utilizaria hasta el punto que no aplique la transformada inversa.</p><p>Para este problema se utilizar&aacute; una modificaci&oacute;n de la funci&oacute;n "laplace2016a" llamada "transferencia".</p><pre class="codeinput">syms <span class="string">t</span>;
+transferencia([2 2 1],[2 1],[0 0],0,dirac(t),10)
+</pre><pre class="codeoutput"> 
+APLICAMOS TRANSFORMADA DE LAPLACE y subtituimos condiciones iniciales
+ 
+                     2
+2 Y(s) + 2 s Y(s) + s  Y(s)
+
+=
+2 X(s) + s X(s)
+
+ 
+SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA
+ 
+                     2
+2 Y(s) + 2 s Y(s) + s  Y(s)
+
+=
+s + 2
+
+ 
+DESPEJAMOS Y(s)
+ 
+Y(s)=
+    s + 2
+------------
+ 2
+s  + 2 s + 2
+
+ 
+DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(s)
+ 
+ 
+El resultado de las fracciones parciales ser&aacute; la funci&oacute;n de transferencia del sistema:
+ 
+H(s)=
+    s + 2
+------------
+ 2
+s  + 2 s + 2
+
+</pre><h2 id="6">Sistemas diferenciales 2</h2><p>Muestra la respuesta al impulso (simb&oacute;lico, gr&aacute;fica)</p><p>Para este problema utilizamos el codigo tal cual, ya que la respuesta al impulso es la transformada inversa de la funci&oacute;n de transferencia.</p><pre class="codeinput">syms <span class="string">t</span>;
+laplace2016a([2 2 1],[2 1],[0 0],0,dirac(t),10)
+</pre><pre class="codeoutput"> 
+APLICAMOS TRANSFORMADA DE LAPLACE y subtituimos condiciones iniciales
+ 
+                     2
+2 Y(s) + 2 s Y(s) + s  Y(s)
+
+=
+2 X(s) + s X(s)
+
+ 
+SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA
+ 
+                     2
+2 Y(s) + 2 s Y(s) + s  Y(s)
+
+=
+s + 2
+
+ 
+DESPEJAMOS Y(s)
+ 
+Y(s)=
+    s + 2
+------------
+ 2
+s  + 2 s + 2
+
+ 
+DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(s)
+ 
+Y(s)=
+    s + 2
+------------
+ 2
+s  + 2 s + 2
+
+ 
+Aplicamos transformada inversa, asi la soluci&oacute;n es
+ 
+y(t)=
+exp(-t) (cos(t) + sin(t))
+
+</pre><img vspace="5" hspace="5" src="P6_01.png" alt=""> <h2 id="8">Sistemas diferenciales 3</h2><p>Muestra la respuesta a entrada cero (simb&oacute;lico, gr&aacute;fica)</p><p>Utilizaremos la misma funci&oacute;n pero la entrada ser&aacute; un cero y se utilizan las condiciones iniciales dadas. Debido a que la entrada es cero se har&aacute; una nueva modificaci&oacute;n a la funci&oacute;n y se llamar&aacute; "entradacero".</p><pre class="codeinput">syms <span class="string">t</span>;
+entradacero([2 2 1],[2 1],[1 1],0,0,10)
+</pre><pre class="codeoutput"> 
+APLICAMOS TRANSFORMADA DE LAPLACE y subtituimos condiciones iniciales
+ 
+                         2
+2 Y(s) - s + 2 s Y(s) + s  Y(s) - 3
+
+=
+2 X(s) + s X(s)
+
+ 
+SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA
+ 
+ 
+DESPEJAMOS Y(s)
+ 
+Y(s)=
+    s + 3
+------------
+ 2
+s  + 2 s + 2
+
+ 
+DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(s)
+ 
+Y(s)=
+    s + 3
+------------
+ 2
+s  + 2 s + 2
+
+ 
+Aplicamos transformada inversa, asi la soluci&oacute;n es
+ 
+y(t)=
+exp(-t) (cos(t) + 2 sin(t))
+
+</pre><img vspace="5" hspace="5" src="P6_02.png" alt=""> <h2 id="10">Sistemas diferenciales 4</h2><p>Muestra la respuesta a estado cero (simb&oacute;lico, gr&aacute;fica)</p><p>Utilizaremos la misma funci&oacute;n pero no extistiran condiciones iniciales y esta vez utilizaremos la entrada dada.</p><pre class="codeinput">syms <span class="string">t</span>;
+laplace2016a([2 2 1],[2 1],[0 0],0,exp(-t)*heaviside(t),10)
+</pre><pre class="codeoutput"> 
+APLICAMOS TRANSFORMADA DE LAPLACE y subtituimos condiciones iniciales
+ 
+                     2
+2 Y(s) + 2 s Y(s) + s  Y(s)
+
+=
+2 X(s) + s X(s)
+
+ 
+SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA
+ 
+                     2
+2 Y(s) + 2 s Y(s) + s  Y(s)
+
+=
+  s       2
+----- + -----
+s + 1   s + 1
+
+ 
+DESPEJAMOS Y(s)
+ 
+Y(s)=
+       s + 2
+-------------------
+ 3      2
+s  + 3 s  + 4 s + 2
+
+ 
+DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(s)
+ 
+Y(s)=
+  1           s
+----- - ------------
+s + 1    2
+        s  + 2 s + 2
+
+ 
+Aplicamos transformada inversa, asi la soluci&oacute;n es
+ 
+y(t)=
+exp(-t) - exp(-t) (cos(t) - sin(t))
+
+</pre><img vspace="5" hspace="5" src="P6_03.png" alt=""> <h2 id="12">Sistemas diferenciales 5</h2><p>Muestra la respuesta total (simb&oacute;lico, gr&aacute;fica)</p><p>Utilizaremos la misma funci&oacute;n y esta vez utilizaremos la entrada y las condiciones iniciales dadas.</p><pre class="codeinput">syms <span class="string">t</span>;
+laplace2016a([2 2 1],[2 1],[1 1],0,exp(-t)*heaviside(t),10)
+</pre><pre class="codeoutput"> 
+APLICAMOS TRANSFORMADA DE LAPLACE y subtituimos condiciones iniciales
+ 
+                         2
+2 Y(s) - s + 2 s Y(s) + s  Y(s) - 3
+
+=
+2 X(s) + s X(s)
+
+ 
+SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA
+ 
+                         2
+2 Y(s) - s + 2 s Y(s) + s  Y(s) - 3
+
+=
+  s       2
+----- + -----
+s + 1   s + 1
+
+ 
+DESPEJAMOS Y(s)
+ 
+Y(s)=
+     2
+    s  + 5 s + 5
+-------------------
+ 3      2
+s  + 3 s  + 4 s + 2
+
+ 
+DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(s)
+ 
+Y(s)=
+  1           3
+----- + ------------
+s + 1    2
+        s  + 2 s + 2
+
+ 
+Aplicamos transformada inversa, asi la soluci&oacute;n es
+ 
+y(t)=
+exp(-t) + 3 exp(-t) sin(t)
+
+</pre><img vspace="5" hspace="5" src="P6_04.png" alt=""> <h2 id="14">Sistemas diferenciales 6</h2><p>La respuesta total al escal&oacute;n con condiciones iniciales 0 (simb&oacute;lico, gr&aacute;fica)</p><p>Ahora utilizaremos como entrada un escalon unitario y condiciones iniciales cero.</p><pre class="codeinput">syms <span class="string">t</span>;
+laplace2016a([2 2 1],[2 1],[0 0],0,heaviside(t),10)
+</pre><pre class="codeoutput"> 
+APLICAMOS TRANSFORMADA DE LAPLACE y subtituimos condiciones iniciales
+ 
+                     2
+2 Y(s) + 2 s Y(s) + s  Y(s)
+
+=
+2 X(s) + s X(s)
+
+ 
+SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA
+ 
+                     2
+2 Y(s) + 2 s Y(s) + s  Y(s)
+
+=
+2
+- + 1
+s
+
+ 
+DESPEJAMOS Y(s)
+ 
+Y(s)=
+     s + 2
+---------------
+ 3      2
+s  + 2 s  + 2 s
+
+ 
+DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(s)
+ 
+Y(s)=
+1       s + 1
+- - ------------
+s    2
+    s  + 2 s + 2
+
+ 
+Aplicamos transformada inversa, asi la soluci&oacute;n es
+ 
+y(t)=
+1 - exp(-t) cos(t)
+
+</pre><img vspace="5" hspace="5" src="P6_05.png" alt=""> <h2 id="16">Sistemas diferenciales 7</h2><p>Usando subplot, depliega una figura con 5 gr&aacute;ficas</p><p>Para esta parte haremos uso de la funci&oacute;n subplot y colocaremos las graficas previamente guardadas como figuras.</p><pre class="codeinput">graficas();
+</pre><img vspace="5" hspace="5" src="P6_06.png" alt=""> <h2 id="18">Sistemas en diferencias</h2><p>Para la solucion de los sistemas en diferencias se ocupara el siguiente codigo, el cual indica los pasos para la solucion de estos y a su vez tambien grafica la respuesta encontrada y la entrada del sistema.</p><pre class="language-matlab">
+<span class="keyword">function</span> zeta2016a(a,b,ciy,cix,xi,n0)
+<span class="comment">% a coeficientes de las traslaciones de la salida mayor a menor [a_n, ..., a_0]</span>
+<span class="comment">% b coeficientes de las traslaciones de la entrada mayor a menor [b_m, ..., b_0]</span>
+<span class="comment">% ciy condiciones iniciales de la salida de mayor a menor [y(n-1), y(0)]</span>
+<span class="comment">% cix condiciones iniciales de la entrada de mayor a menor [x(m-1), x(0)]</span>
+<span class="comment">% xi funcion de entrada en terminos de la variable simbolica n previamente</span>
+<span class="comment">% declarada en el command window</span>
+<span class="comment">% n0 tiempo final para graficar la solucion, y la entrada</span>
+<span class="comment">% ejemplo: resolver </span>
+<span class="comment">%6y[n+2]+5y[n+1]+y[n]=x[n+1]+x[n] con y[1]=2 y[0]=1</span>
+<span class="comment">%x[0]=0.5, x[n]=u[n], para 30 segundos, se resuleve como</span>
+<span class="comment">% syms n</span>
+<span class="comment">% zeta2016a([6 5 1],[ 1, 1],[2 1],[0.5],heaviside(n),30)</span>
+close <span class="string">all</span>
+tam=size(a);
+tami=size(b);
+syms <span class="string">y(n)</span> <span class="string">n</span> <span class="string">z</span> <span class="string">Y(z)</span> <span class="string">x(n)</span> <span class="string">X(z)</span> <span class="string">Yy</span> <span class="string">fp</span>;
+syms <span class="string">edd</span> <span class="string">edi</span>
+edd=0;
+edi=0;
+
+<span class="keyword">for</span> i=1:tam(2)
+   yd(i)=y(n+tam(2)-i);
+   edd=edd+ a(i)*ztrans(yd(i));   
+<span class="keyword">end</span>
+
+
+<span class="keyword">for</span> i=1:tami(2)
+   xd(i)=x(n+tami(2)-i);
+   edi=edi+ b(i)*ztrans(xd(i));   
+<span class="keyword">end</span>
+
+mensaje(<span class="string">'APLICAMOS TRANSFORMADA ZETA '</span>)
+edd=subs(edd,ztrans(y(n),n,z), Y(z));
+edi=subs(edi,ztrans(x(n),n,z), X(z));
+pretty(edd)
+disp(<span class="string">'='</span>)
+pretty(edi)
+mensaje(<span class="string">'SUBSTITUIMOS CONDICIONES INICIALES'</span>)
+
+<span class="keyword">for</span> j=1:tami(2)-1
+edi=subs(edi,x(tami(2)-1-j),cix(j));
+<span class="keyword">end</span>
+
+<span class="keyword">for</span> j=1:tam(2)-1
+edd=subs(edd,y(tam(2)-1-j),ciy(j));
+<span class="keyword">end</span>
+
+pretty(edd)
+disp(<span class="string">'='</span>)
+pretty(edi)
+
+mensaje(<span class="string">'SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA'</span>)
+
+<span class="keyword">if</span>(xi == 0)
+    edi=subs(edi,X(z), 0);
+<span class="keyword">else</span>
+
+edi=subs(edi,X(z), ztrans(xi));
+pretty(edd)
+disp(<span class="string">'='</span>)
+pretty(edi)
+
+<span class="keyword">end</span>
+
+mensaje(<span class="string">'DESPEJAMOS Y(z)'</span>)
+
+edd=collect(edd,Y(z));
+edd=subs(edd,Y(z),Yy);
+eq1=edd==edi;
+disp(<span class="string">'Y(z)='</span>)
+edd=solve(eq1, Yy);
+pretty(edd)
+
+<span class="comment">%%% Para versiones superiores a 2016</span>
+mensaje(<span class="string">'DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(z)'</span>)
+disp(<span class="string">'Y(z)='</span>)
+pretty(partfrac(edd))
+<span class="comment">%%%% Si se ejecuta en 2015 o menor comentar las 3 lineas anteriores</span>
+
+mensaje(<span class="string">'Aplicamos transformada inversa, asi la solucion es'</span>)
+disp(<span class="string">'y(n)='</span>)
+y(n)=iztrans(edd);
+pretty(y(n))
+
+figure (1)
+hFig = figure(1);
+set(hFig, <span class="string">'Position'</span>, [0 0 900 900])
+axes1 = axes(<span class="string">'Parent'</span>,hFig,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16);
+tiempo=0:1:n0;
+stem(tiempo,subs(xi,n,tiempo),<span class="string">'b'</span>,<span class="string">'LineWidth'</span>,2)
+hold <span class="string">on</span>
+stem(tiempo,subs(y(n),n,tiempo),<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+legend(<span class="string">'Entrada x[n]'</span>,<span class="string">'Salida y[n]'</span>,<span class="string">'Location'</span>,<span class="string">'Best'</span>)
+xlabel(<span class="string">'tiempo'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+title(<span class="string">'Solucion de la ecuacion en diferencias '</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+grid <span class="string">on</span>
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> mensaje(texto)
+disp( <span class="string">' '</span>)
+disp(texto)
+disp( <span class="string">' '</span>)
+<span class="keyword">end</span>
+
+</pre><p>El sistema que se resolvera es el siguiente:</p><p><img vspace="5" hspace="5" src="imagen1p6.png" alt=""> </p><p>Cuando sea plicable se usaran las siguientes condiciones iniciales:</p><p><img vspace="5" hspace="5" src="imagen2p6.png" alt=""> </p><p>Y la siguiente se&ntilde;al de entrada:</p><p><img vspace="5" hspace="5" src="imagen3p6.png" alt=""> </p><h2 id="23">Sistemas en diferencias 1</h2><p>La funcion de transferencia de un sistema se puede obtener haciendo que la entrada sea un impulso (Delta de Kronecker) y que las condiciones iniciales sean cero. Para esto emplearemos una funcion llamada transferenciaDis(), cuyo unico cambio con respecto al codigo anteriormente mostrado es que no grafica las funciones.</p><pre class="codeinput">syms <span class="string">n</span>
+transferenciaDis([6 5 1],[1 1],[0 0],[1],kroneckerDelta(n),5)
+</pre><pre class="codeoutput"> 
+APLICAMOS TRANSFORMADA ZETA 
+ 
+          2                                            2
+Y(z) + 6 z  Y(z) - 5 z y(0) - 6 z y(1) + 5 z Y(z) - 6 z  y(0)
+
+=
+X(z) - z x(0) + z X(z)
+
+ 
+SUBSTITUIMOS CONDICIONES INICIALES
+ 
+          2
+Y(z) + 6 z  Y(z) + 5 z Y(z)
+
+=
+X(z) - z + z X(z)
+
+ 
+SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA
+ 
+          2
+Y(z) + 6 z  Y(z) + 5 z Y(z)
+
+=
+1
+
+ 
+DESPEJAMOS Y(z)
+ 
+Y(z)=
+       1
+--------------
+   2
+6 z  + 5 z + 1
+
+ 
+DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(z)
+ 
+Y(z)=
+   3         2
+------- - -------
+3 z + 1   2 z + 1
+
+ 
+Aplicamos transformada inversa, asi la solucion es
+ 
+y(n)=
+  /   1 \n     /   1 \n
+2 | - - |  - 3 | - - |  + kroneckerDelta(n, 0)
+  \   2 /      \   3 /
+
+</pre><p>Como podemos observar de correr la funcion zeta2016a() con las condiciones antes mencionadas tenemos que la funcion de transferencia es:</p><p><img vspace="5" hspace="5" src="transferencia.png" alt=""> </p><h2 id="26">Sistemas en diferencias 2</h2><p>En este apartado se calcula la respuesta al impulso del sistema, de la misma forma que ne  el apartado anterioir, las condiciones iniciales son cero.</p><pre class="codeinput">syms <span class="string">n</span>
+f = kroneckerDelta(n);
+zeta2016a([6 5 1],[1 1],[0 0],[1],f,5)
+</pre><pre class="codeoutput"> 
+APLICAMOS TRANSFORMADA ZETA 
+ 
+          2                                            2
+Y(z) + 6 z  Y(z) - 5 z y(0) - 6 z y(1) + 5 z Y(z) - 6 z  y(0)
+
+=
+X(z) - z x(0) + z X(z)
+
+ 
+SUBSTITUIMOS CONDICIONES INICIALES
+ 
+          2
+Y(z) + 6 z  Y(z) + 5 z Y(z)
+
+=
+X(z) - z + z X(z)
+
+ 
+SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA
+ 
+          2
+Y(z) + 6 z  Y(z) + 5 z Y(z)
+
+=
+1
+
+ 
+DESPEJAMOS Y(z)
+ 
+Y(z)=
+       1
+--------------
+   2
+6 z  + 5 z + 1
+
+ 
+DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(z)
+ 
+Y(z)=
+   3         2
+------- - -------
+3 z + 1   2 z + 1
+
+ 
+Aplicamos transformada inversa, asi la solucion es
+ 
+y(n)=
+  /   1 \n     /   1 \n
+2 | - - |  - 3 | - - |  + kroneckerDelta(n, 0)
+  \   2 /      \   3 /
+
+</pre><img vspace="5" hspace="5" src="P6_07.png" alt=""> <h2 id="27">Sistemas en diferencias 3</h2><p>En este apartado se muestra la respuesta del sistema a entrada cero, por tanto, <img src="P6_eq11371525151105543459.png" alt="$x[n]=0;$">(recordar que para la respuesta a entrada cero, las condiciones iniciales dadas al inicio se respetan).</p><pre class="codeinput">syms <span class="string">n</span>
+zeta2016a([6 5 1],[1 1],[2 1],[0],0,5)
+</pre><pre class="codeoutput"> 
+APLICAMOS TRANSFORMADA ZETA 
+ 
+          2                                            2
+Y(z) + 6 z  Y(z) - 5 z y(0) - 6 z y(1) + 5 z Y(z) - 6 z  y(0)
+
+=
+X(z) - z x(0) + z X(z)
+
+ 
+SUBSTITUIMOS CONDICIONES INICIALES
+ 
+                 2                      2
+Y(z) - 17 z + 6 z  Y(z) + 5 z Y(z) - 6 z
+
+=
+X(z) + z X(z)
+
+ 
+SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA
+ 
+ 
+DESPEJAMOS Y(z)
+ 
+Y(z)=
+     2
+  6 z  + 17 z
+--------------
+   2
+6 z  + 5 z + 1
+
+ 
+DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(z)
+ 
+Y(z)=
+   14        15
+------- - ------- + 1
+2 z + 1   3 z + 1
+
+ 
+Aplicamos transformada inversa, asi la solucion es
+ 
+y(n)=
+   /   1 \n      /   1 \n
+15 | - - |  - 14 | - - |
+   \   3 /       \   2 /
+
+</pre><img vspace="5" hspace="5" src="P6_08.png" alt=""> <h2 id="28">Sistemas en diferencias 4</h2><p>A continuacion se muestra la respuesta a estado cero, lo que signifia que la entrada sera la definida al inicio de este apatado, y as condiciones inucuales del sistema seran cero.</p><pre class="codeinput">syms <span class="string">n</span>
+zeta2016a([6 5 1],[1 1],[0 0],[1],heaviside(n),5)
+</pre><pre class="codeoutput"> 
+APLICAMOS TRANSFORMADA ZETA 
+ 
+          2                                            2
+Y(z) + 6 z  Y(z) - 5 z y(0) - 6 z y(1) + 5 z Y(z) - 6 z  y(0)
+
+=
+X(z) - z x(0) + z X(z)
+
+ 
+SUBSTITUIMOS CONDICIONES INICIALES
+ 
+          2
+Y(z) + 6 z  Y(z) + 5 z Y(z)
+
+=
+X(z) - z + z X(z)
+
+ 
+SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA
+ 
+          2
+Y(z) + 6 z  Y(z) + 5 z Y(z)
+
+=
+  1           /   1       \
+----- - z + z | ----- + 1 | + 1
+z - 1         \ z - 1     /
+
+ 
+DESPEJAMOS Y(z)
+ 
+Y(z)=
+           2 z
+- ---------------------
+       3    2
+  - 6 z  + z  + 4 z + 1
+
+ 
+DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(z)
+ 
+Y(z)=
+    1            4             3
+--------- - ----------- + -----------
+6 (z - 1)   (2 z + 1) 3   (3 z + 1) 2
+
+ 
+Aplicamos transformada inversa, asi la solucion es
+ 
+y(n)=
+  /   1 \n     /   1 \n
+4 | - - |    3 | - - |
+  \   2 /      \   3 /    1
+---------- - ---------- + -
+     3            2       6
+
+</pre><img vspace="5" hspace="5" src="P6_09.png" alt=""> <h2 id="29">Sistemas en diferencias 5</h2><p>La respuesta total del sistema, considerando las condiciones iniciales diferentes de creo y la netrada <img src="P6_eq17924167568066421134.png" alt="$x[n]$"> definida al inicio.</p><pre class="codeinput">syms <span class="string">n</span>
+zeta2016a([6 5 1],[1 1],[2 1],[1],heaviside(n),5)
+</pre><pre class="codeoutput"> 
+APLICAMOS TRANSFORMADA ZETA 
+ 
+          2                                            2
+Y(z) + 6 z  Y(z) - 5 z y(0) - 6 z y(1) + 5 z Y(z) - 6 z  y(0)
+
+=
+X(z) - z x(0) + z X(z)
+
+ 
+SUBSTITUIMOS CONDICIONES INICIALES
+ 
+                 2                      2
+Y(z) - 17 z + 6 z  Y(z) + 5 z Y(z) - 6 z
+
+=
+X(z) - z + z X(z)
+
+ 
+SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA
+ 
+                 2                      2
+Y(z) - 17 z + 6 z  Y(z) + 5 z Y(z) - 6 z
+
+=
+  1           /   1       \
+----- - z + z | ----- + 1 | + 1
+z - 1         \ z - 1     /
+
+ 
+DESPEJAMOS Y(z)
+ 
+Y(z)=
+      3       2
+   6 z  + 11 z  - 15 z
+- ---------------------
+       3    2
+  - 6 z  + z  + 4 z + 1
+
+ 
+DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(z)
+ 
+Y(z)=
+    1            38            27
+--------- + ----------- - ----------- + 1
+6 (z - 1)   (2 z + 1) 3   (3 z + 1) 2
+
+ 
+Aplicamos transformada inversa, asi la solucion es
+ 
+y(n)=
+   /   1 \n      /   1 \n
+27 | - - |    38 | - - |
+   \   3 /       \   2 /    1
+----------- - ----------- + -
+     2             3        6
+
+</pre><img vspace="5" hspace="5" src="P6_10.png" alt=""> <h2 id="30">Sistemas en diferecias 6</h2><p>Ahora se muestra la respuesta total del sistema al escalon, con condiciones inuales cero.</p><pre class="codeinput">syms <span class="string">n</span>
+zeta2016a([6 5 1],[1 1],[0 0],[1],heaviside(n),5)
+</pre><pre class="codeoutput"> 
+APLICAMOS TRANSFORMADA ZETA 
+ 
+          2                                            2
+Y(z) + 6 z  Y(z) - 5 z y(0) - 6 z y(1) + 5 z Y(z) - 6 z  y(0)
+
+=
+X(z) - z x(0) + z X(z)
+
+ 
+SUBSTITUIMOS CONDICIONES INICIALES
+ 
+          2
+Y(z) + 6 z  Y(z) + 5 z Y(z)
+
+=
+X(z) - z + z X(z)
+
+ 
+SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA
+ 
+          2
+Y(z) + 6 z  Y(z) + 5 z Y(z)
+
+=
+  1           /   1       \
+----- - z + z | ----- + 1 | + 1
+z - 1         \ z - 1     /
+
+ 
+DESPEJAMOS Y(z)
+ 
+Y(z)=
+           2 z
+- ---------------------
+       3    2
+  - 6 z  + z  + 4 z + 1
+
+ 
+DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(z)
+ 
+Y(z)=
+    1            4             3
+--------- - ----------- + -----------
+6 (z - 1)   (2 z + 1) 3   (3 z + 1) 2
+
+ 
+Aplicamos transformada inversa, asi la solucion es
+ 
+y(n)=
+  /   1 \n     /   1 \n
+4 | - - |    3 | - - |
+  \   2 /      \   3 /    1
+---------- - ---------- + -
+     3            2       6
+
+</pre><img vspace="5" hspace="5" src="P6_11.png" alt=""> <h2 id="31">Sistemas en diferencias 7</h2><p>Para mostrar todas las graficas a la vez se creo una funcion llamada graficasDsis().</p><pre class="codeinput">graficasDis()
+</pre><img vspace="5" hspace="5" src="P6_12.png" alt=""> <p>Puede consultar el cogigo de esta funcion en el siguiente <a href="https://github.com/TulioCarmona/Practica-2/blob/master/graficasDis.m">enlace</a></p><h2 id="33">Referencias</h2><div><ol><li>Mart&iacute;nez, R. [Mate y as&iacute;]. (2019 Marzo). Conceptos de Sistemas [Lista de reproducci&oacute;n]. Recuperada de <a href="https://www.youtube.com/playlist?list=PLSC7gO5dTNPd3lHkJ7MJLTodTwo3xV26v">https://www.youtube.com/playlist?list=PLSC7gO5dTNPd3lHkJ7MJLTodTwo3xV26v</a></li><li>Lathi, B. P.. (2005). Linear Systems and Signals. New York: Oxford University Press, Inc.</li></ol></div><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Práctica 06: Sistemas diferenciales y en diferencias
+%
+% *Intituto Politécnico Nacional*
+%
+% *Unidad Profesional Interdisciplinaria en Ingeniería y Tecnologías Avanzadas*
+%
+% *Análisis de Señales y Sistemas*
+%
+% *Grupo: 2MV1*
+%
+% *Alumnos:*
+% 
+% * Carmona Bellido Marco Tulio
+%
+% * Ordorica Muñoz Leonardo Antonio
+%
+%% Sistemas diferenciales
+% Realizar los siguientes problemas para el siguiente ejemplo.
+%
+% $\frac{dy(t)}{dt}+2\frac{dy(t)}{dt}+2y(t)=\frac{dx(t)}{dt}+2x(t)$
+%
+% Con $x(t)=e^{-t}u(t)$ y con condiciones iniciales y'(0)=1 y y(0)=1.
+%
+% Para fines practicos se va a cambiar la definición del escalon en matlab.
+%%
+sympref('HeavisideAtOrigin', 1);
+%%
+% Para la elaboracion de esta primera parte de la practica se hará uso del
+% siguiente codigo al que dependiendo el problema a resolver se debe hacer
+% alguna correccion.
+%
+% <include>laplace2016a.m</include>
+%
+%% Sistemas diferenciales 1
+% Muestra la función de transferencia del sistema.
+%
+% Para la función de transferencia del sistema necesitamos que la entrada
+% del sistema sea un impulso y no hay condiciones iniciales, entonces el
+% codigo solo se utilizaria hasta el punto que no aplique la transformada
+% inversa.
+%
+% Para este problema se utilizará una modificación de la función
+% "laplace2016a" llamada "transferencia".
+%%
+syms t;
+transferencia([2 2 1],[2 1],[0 0],0,dirac(t),10)
+%% Sistemas diferenciales 2
+% Muestra la respuesta al impulso (simbólico, gráfica)
+%
+% Para este problema utilizamos el codigo tal cual, ya que la respuesta al
+% impulso es la transformada inversa de la función de transferencia.
+%%
+syms t;
+laplace2016a([2 2 1],[2 1],[0 0],0,dirac(t),10)
+%% Sistemas diferenciales 3
+% Muestra la respuesta a entrada cero (simbólico, gráfica)
+%
+% Utilizaremos la misma función pero la entrada será un cero y se utilizan
+% las condiciones iniciales dadas.
+% Debido a que la entrada es cero se hará una nueva modificación a la
+% función y se llamará "entradacero".
+%%
+syms t;
+entradacero([2 2 1],[2 1],[1 1],0,0,10)
+%% Sistemas diferenciales 4
+% Muestra la respuesta a estado cero (simbólico, gráfica)
+%
+% Utilizaremos la misma función pero no extistiran condiciones iniciales y
+% esta vez utilizaremos la entrada dada.
+%%
+syms t;
+laplace2016a([2 2 1],[2 1],[0 0],0,exp(-t)*heaviside(t),10)
+%% Sistemas diferenciales 5
+% Muestra la respuesta total (simbólico, gráfica)
+%
+% Utilizaremos la misma función y esta vez utilizaremos la entrada y las
+% condiciones iniciales dadas.
+%%
+syms t;
+laplace2016a([2 2 1],[2 1],[1 1],0,exp(-t)*heaviside(t),10)
+%% Sistemas diferenciales 6
+% La respuesta total al escalón con condiciones iniciales 0 (simbólico, gráfica)
+%
+% Ahora utilizaremos como entrada un escalon unitario y condiciones
+% iniciales cero.
+%%
+syms t;
+laplace2016a([2 2 1],[2 1],[0 0],0,heaviside(t),10)
+%% Sistemas diferenciales 7
+% Usando subplot, depliega una figura con 5 gráficas
+%
+% Para esta parte haremos uso de la función subplot y colocaremos las
+% graficas previamente guardadas como figuras.
+%%
+graficas();
+%% Sistemas en diferencias
+%
+% Para la solucion de los sistemas en diferencias se ocupara el siguiente
+% codigo, el cual indica los pasos para la solucion de estos y a su vez
+% tambien grafica la respuesta encontrada y la entrada del sistema.
+%
+% <include>zeta2016a.m</include>
+%
+%% 
+% El sistema que se resolvera es el siguiente:
+%%
+% 
+% <<imagen1p6.png>>
+% 
+% Cuando sea plicable se usaran las siguientes condiciones iniciales:
+%%
+% 
+% <<imagen2p6.png>>
+% 
+% Y la siguiente señal de entrada:
+%%
+% 
+% <<imagen3p6.png>>
+% 
+%% Sistemas en diferencias 1
+%
+% La funcion de transferencia de un sistema se puede obtener haciendo que
+% la entrada sea un impulso (Delta de Kronecker) y que las condiciones
+% iniciales sean cero. Para esto emplearemos una funcion llamada
+% transferenciaDis(), cuyo unico cambio con respecto al codigo
+% anteriormente mostrado es que no grafica las funciones.
+%
+syms n
+transferenciaDis([6 5 1],[1 1],[0 0],[1],kroneckerDelta(n),5)
+%%
+% Como podemos observar de correr la funcion zeta2016a() con las
+% condiciones antes mencionadas tenemos que la funcion de transferencia es:
+%%
+% 
+% <<transferencia.png>>
+% 
+%% Sistemas en diferencias 2
+%
+% En este apartado se calcula la respuesta al impulso del sistema, de la
+% misma forma que ne  el apartado anterioir, las condiciones iniciales son
+% cero.
+syms n
+f = kroneckerDelta(n);
+zeta2016a([6 5 1],[1 1],[0 0],[1],f,5)
+%% Sistemas en diferencias 3
+%
+% En este apartado se muestra la respuesta del sistema a entrada cero, por
+% tanto, $x[n]=0;$(recordar que para la respuesta a entrada cero, las condiciones iniciales dadas al inicio se respetan).
+syms n
+zeta2016a([6 5 1],[1 1],[2 1],[0],0,5)
+%% Sistemas en diferencias 4
+%
+% A continuacion se muestra la respuesta a estado cero, lo que signifia que
+% la entrada sera la definida al inicio de este apatado, y as condiciones
+% inucuales del sistema seran cero.
+syms n
+zeta2016a([6 5 1],[1 1],[0 0],[1],heaviside(n),5)
+%% Sistemas en diferencias 5
+%
+% La respuesta total del sistema, considerando las condiciones iniciales
+% diferentes de creo y la netrada $x[n]$ definida al inicio.
+syms n
+zeta2016a([6 5 1],[1 1],[2 1],[1],heaviside(n),5)
+%% Sistemas en diferecias 6
+%
+% Ahora se muestra la respuesta total del sistema al escalon, con
+% condiciones inuales cero.
+syms n
+zeta2016a([6 5 1],[1 1],[0 0],[1],heaviside(n),5)
+%% Sistemas en diferencias 7
+%
+% Para mostrar todas las graficas a la vez se creo una funcion llamada
+% graficasDsis().
+graficasDis()
+%%
+% Puede consultar el cogigo de esta funcion en el siguiente <https://github.com/TulioCarmona/Practica-2/blob/master/graficasDis.m enlace>
+%% Referencias
+% # Martínez, R. [Mate y así]. (2019 Marzo). Conceptos de Sistemas
+% [Lista de reproducción]. Recuperada de <https://www.youtube.com/playlist?list=PLSC7gO5dTNPd3lHkJ7MJLTodTwo3xV26v https://www.youtube.com/playlist?list=PLSC7gO5dTNPd3lHkJ7MJLTodTwo3xV26v>
+% # Lathi, B. P.. (2005). Linear Systems and Signals. New York: Oxford University Press, Inc.
+
+##### SOURCE END #####
+--></body></html>
